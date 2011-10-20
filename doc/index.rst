@@ -1,5 +1,5 @@
 .. http://web.infn.it/esc11/images/template/header2011_1000x260v6.jpg
-.. image:: header2011_1000x260v6.jpg
+.. image:: header2011_1000x260v6.gif
    :alt: Third INFN international school on architectures, tools and
          methodologies for developing efficient large scale scientific
          computing applications
