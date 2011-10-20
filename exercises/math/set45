@@ -1,0 +1,9 @@
+source /afs/cern.ch/sw/lcg/external/gcc/4.5.0_20100409/x86_64-slc5-gcc43-opt/setup.csh
+setenv CXXFLAGS "-O2 -std=gnu++0x -msse4"
+setenv OPTFLAGS "-fassociative-math -freciprocal-math -fno-math-errno -fno-signed-zeros -fno-trapping-math -ffinite-math-only"
+setenv CXXFLAGS "${CXXFLAGS} -ftree-vectorize -ftree-vectorizer-verbose=1 -pthread -fPIC -fopenmp"
+# setenv CXXFLAGS "${CXXFLAGS} -floop-parallelize-all -flto  -D_GLIBCXX_PARALLEL"
+# setenv LD_LIBRARY_PATH /afs/cern.ch/sw/lcg/external/Boost/1.42.0_python2.6/x86_64-slc5-gcc43-opt/lib:${LD_LIBRARY_PATH}
+# setenv CXXFLAGS "${CXXFLAGS} -I/afs/cern.ch/sw/lcg/external/Boost/1.42.0_python2.6/x86_64-slc5-gcc43-opt/include"
+# setenv CXXFLAGS "${CXXFLAGS} -L/afs/cern.ch/sw/lcg/external/Boost/1.42.0_python2.6/x86_64-slc5-gcc43-opt/lib"
+

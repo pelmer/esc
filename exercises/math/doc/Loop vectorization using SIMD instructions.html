@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+  
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  <title>Loop vectorization using SIMD instructions</title>
+
+  
+</head><body>
+<h1>Loop vectorization using SIMD instructions</h1>
+
+goal of this excercise is to speed-up loop execution streaming fp data
+in parallel (four by four) through SIMD instructions<br>
+
+<br>
+
+<ol>
+
+  <li>Vectorize the generation of normally (gaussian) distributed
+random numbers</li>
+  <li>Vectorize the chi2 calculation (including kahan summation)</li>
+  <li>Vectorize "vl_fast_atan2_f"<br>
+  </li>
+  <li>try to "convince" the compiler to vectorize loops using
+ftree-vectorize</li>
+  <li>Measure speed-up</li>
+  <li>Apply all this to the minimization example</li>
+  <li>A long term project: vectorize the Wallace's normal random number
+generator in C++<br>
+  </li>
+  <br>
+</ol>
+
+<h2>Code</h2>
+
+<br>
+
+in include:<br>
+
+<a href="../include/SSEArray.h">SSEArray.h</a><br>
+
+<a href="../include/gaussian_ziggurat.h">gaussian_ziggurat.h</a><br>
+
+<br>
+
+in examples:<br>
+
+<a href="../include/SSEMathFun_t.cpp">SSEMathFun_t.cpp</a> ("the
+vectorized loop")<br>
+
+<a href="../examples/approxPhi.cpp">approxPhi.cpp</a> (approximated
+atan2 to vectorize)<br>
+
+<a href="../examples/exRandom.cpp">exRandom.cpp</a> (example of random
+generators' usage and blending of a 16-wide vector)<br>
+
+<h2>Hints<br>
+</h2>
+
+
+
+<pre><span style="color: red;"></span><span style="color: red;">pfmon  --long-smpl-period=5000 --resolve-addresses --smpl-per-function --smpl-show-top=20 ./a.out<br>pfmon -e UNHALTED_CORE_CYCLES,ARITH:CYCLES_DIV_BUSY,SSEX_UOPS_RETIRED:SCALAR_SINGLE,SSEX_UOPS_RETIRED:PACKED_SINGLE  ./a.out k<br><br></span></pre>
+<h2>
+</h2>
+
+<h2>References</h2>
+
+<a href="http://gruntthepeon.free.fr/ssemath/">a partial SSE port of
+the cephes floating point algorithms</a><br>
+
+<a href="http://www.math.sci.hiroshima-u.ac.jp/%7Em-mat/MT/emt.html">Mersenne
+Twister Home Page</a><br>
+
+<a href="http://en.wikipedia.org/wiki/Normal_distribution#Generating_values_from_normal_distribution">Normal
+Distribution on wikipedia</a><br>
+
+<a href="http://www.cse.cuhk.edu.hk/%7Ephwl/mt/public/archives/papers/grng_acmcs07.pdf">David
+B. Thomas; Philip G.W. Leong; Wayne Luk; John D. Villasenor (October
+2007). "Gaussian Random Number Generators" (pdf)</a><br>
+
+<a href="http://arxiv.org/abs/1004.3114">A fast vectorised
+implementation of Wallace's normal random number generator</a><br>
+
+<a href="http://http.developer.nvidia.com/GPUGems3/gpugems3_ch37.html">Random
+Number Generation on GPUs</a><br>
+
+<br>
+
+</body></html>

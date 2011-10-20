@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+  
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  <title>Excercise: Floating Point Representaion</title>
+
+  
+</head><body>
+<h1>Floating Point Representation</h1>
+
+Goal of this exercise is to better understand the&nbsp; IEEE 754
+representation of floating points, the behavior of operations among
+them
+and fp-exceptions.<br>
+
+<ol>
+
+  <li>run paranoia: is your system IEEE 754 conformant?<br>
+  </li>
+  <li>Using the "float-as-int union" print exponent and mantissa of a
+given number, find "next and previous float", verify the representation
+of infinites, subnormals and NaN.</li>
+  <ol>
+  </ol>
+  <ul>
+    <li>suggest code to identify subnormals, NaN and infinites either
+checking their binary representation or using their "properties"<br>
+    </li>
+  </ul>
+  <ol>
+  </ol>
+  <li>Write simple operations among fp and verify the results w.r.t.
+the expectations of the equivalent expression using "real
+numbers".&nbsp;</li>
+  <ul>
+    <li>measure the ulp-gap (and its size as fp-number!) between
+expectations and results<br>
+    </li>
+  </ul>
+  <ul>
+    <li>Make them generating exceptions and verity which exceptions
+have been actually raised.</li>
+    <li>Trap the exceptions using SIGFPE</li>
+  </ul>
+  <li>improve the accuracy of operations using refactoring, Kahan
+summation or other technique.</li>
+  <ul>
+    <li>compare the speed w.r.t. using double-precision</li>
+  </ul>
+  <li>Apply all this to the minimization exemple<br>
+  </li>
+</ol>
+
+<h2>Code</h2>
+
+in exercises:<br>
+
+<a href="../exercises/lookInFloat.cpp">lookInFloat.cpp</a>&nbsp;&nbsp; <a href="../exercises/fpe.cpp">fpe.cpp</a>&nbsp;&nbsp;
+<a href="../exercises/kernels.cc">kernels.cc</a>&nbsp;&nbsp;&nbsp; <a href="../exercises/loglike.cpp">loglike.cpp</a>&nbsp;<br>
+
+in examples:<br>
+
+<a href="../examples/paranoia.c">paranoia.c</a><br>
+
+<br>
+
+<h2>Hints<br>
+</h2>
+
+<pre><span style="color: red;">export CXX=g++-451<br>export CXXFLAGS="-O2 -std=gnu++0x -msse4 -ftree-vectorize -ftree-vectorizer-verbose=1 -pthread -fPIC -fopenmp"<br>export LD_LIBRARY_PATH=${PWD}/lib:${</span><span style="color: red;">LD_LIBRARY_PATH}<br></span><span style="color: red;"><br>// use extern to avoid inlining (compile with -fPIC)<br>// "volatile" can be used to avoid eager optimization<br style="color: red;"></span><br style="color: red;"><br><span style="color: red;">objdump -S -r -C --no-show-raw-insn -w test.o | less<br>(on MacOS: otool -t -v  -V -X test.o  | c++filt | less)<br></span></pre>
+
+<h2>References</h2>
+
+<a href="http://en.wikipedia.org/wiki/IEEE_754">IEEE 754 on Wikipedia</a><br>
+
+<a href="http://en.wikipedia.org/wiki/Single_precision_floating-point_format">Single
+precision floating point format</a><br>
+
+man fetestexcept<br>
+
+<a href="http://www.cplusplus.com/reference/std/limits/numeric_limits/">std::numerical_limits</a><br>
+
+<br>
+
+</body></html>

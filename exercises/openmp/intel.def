@@ -1,0 +1,15 @@
+# for intel compiler on linux
+# copy to make.def
+CC         = icc
+CPP         = icpc
+OPTFLAGS   = -openmp
+
+CLINKER     = $(CC)
+LIBS        = -lm
+
+CFLAGS    = $(OPTFLAGS)
+
+OBJ=o
+EXE=
+RM=rm
+

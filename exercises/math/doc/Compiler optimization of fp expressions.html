@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+
+
+
+
+
+
+<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>Compiler optimization of fp expressions</title></head><body>
+<h1>(Compiler) Optimization of fp expressions</h1>
+Goal of this exercise is to learn how to control and verify the optimizations performed by a compiler on fp expressions<br>
+<br>
+<ol>
+  <li>run paranoia with different optimization flags: what's&nbsp; Kahan opinion?<br>
+</li>
+  <li>Write simple kernels and inspect the generated object code: identify the various operation at assembler level</li>
+
+  <li>&nbsp;compile code with different optimization options and verify the generated code</li>
+  <ul>
+    <li>use also <span style="font-style: italic;">pragmas</span> and <span style="font-style: italic;">function attributes</span> to specify the optimization at different level of granularity</li>
+    <li>find cases when optimization either changes exceptions' behaviour or produces wrong results<br>
+    </li>
+
+  </ul>
+  <li>Learn how to avoid common pitfalls</li>
+  <ul>
+    <li>undesired conversions</li>
+    <li>redundant calls</li>
+    <li>non inlining</li>
+    <li>loss of precision<br>
+    </li>
+
+  </ul>
+  <li>Verify the gain in performance when taking the "correct" approach</li>
+  <li>Apply all this to the minimization exemple</li>
+
+</ol>
+<h2>Code</h2>
+in exercises:<br>
+
+<a href="../exercises/kernels.cc">kernels.cc</a><br>
+
+<br>
+
+<h2>Hints<br>
+</h2>
+
+
+<pre><span style="color: red;">// setenv OPTFLAGS "-fassociative-math -freciprocal-math -fno-math-errno -fno-signed-zeros -fno-trapping-math -ffinite-math-only"<br>// use extern to avoid inlining (and compile with -fPIC)<br>// "volatile" can be used to avoid eager optimization<br>// compile paranoia with -DVOLATILE and/or -DNOSUB</span> <br style="color: red;"><br><span style="color: red;">pfmon  --long-smpl-period=5000 --resolve-addresses --smpl-per-function --smpl-show-top=20 ./a.out<br>pfmon -e UNHALTED_CORE_CYCLES,ARITH:CYCLES_DIV_BUSY,SSEX_UOPS_RETIRED:SCALAR_SINGLE,SSEX_UOPS_RETIRED:PACKED_SINGLE  ./a.out k<br><br><br> objdump -S -r -C --no-show-raw-insn -w test.o | less<br>(on MacOS: otool -t -v  -V -X test.o  | c++filt | less)<br></span></pre>
+
+<h2><br>
+</h2>
+<h2>
+</h2>
+<h2>References</h2>
+<a href="http://gcc.gnu.org/onlinedocs/gcc-4.5.0/gcc/">gcc manual</a><br>
+<ul>
+  <li><a href="http://gcc.gnu.org/onlinedocs/gcc-4.5.0/gcc/Function-Attributes.html#Function-Attributes">Function Attributes section</a></li>
+  <li><a href="http://gcc.gnu.org/onlinedocs/gcc-4.5.0/gcc/Optimize-Options.html#Optimize-Options">Optimize Options section</a></li>
+</ul>
+man gcc<br>
+<br>
+<br>
+
+
+
+</body></html>

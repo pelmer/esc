@@ -1,0 +1,106 @@
+#!/bin/sh
+
+# Set up more attractive time reporting format.
+export TIMEFMT='Timing information for %J: %E real, %U user, %S system (%P%)'
+export TIME="$TIMEFMT"
+
+# --------------------------------------------------------------------
+# Generate configuration files for cmsRun, both DQM processing (RECO)
+# and the post-processing ("harvesting") steps. Adapt the standard
+# configuration files for profiling.
+cmsDriver.py MinBias.cfi -s GEN,SIM,DIGI,L1,DIGI2RAW,HLT:GRun,RAW2DIGI,L1Reco \
+  -n 150 --eventcontent FEVTSIM --conditions auto:mc --relval 10000,100 \
+  --datatier 'GEN-SIM-DIGI-RAW-HLT' --no_exec --dump_python > p1.log 2>&1
+
+cmsDriver.py recominbias -s RAW2DIGI,RECO -n -1 \
+  --filein file:MinBias_cfi_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_RAW2DIGI_L1Reco.root \
+  --eventcontent RECOSIM --conditions auto:mc --no_exec --dump_python > p2.log 2>&1
+
+for prof in pp mp; do
+  for app in MinBias_cfi recominbias; do
+    for f in ${app}_*.py; do
+      (cat $f
+       echo 'process.SimpleMemoryCheck=cms.Service("SimpleMemoryCheck",'
+       echo ' ignoreTotal=cms.untracked.int32(1),'
+       echo ' oncePerEventMode=cms.untracked.bool(True))'
+       echo 'process.IgProfService = cms.Service("IgProfService",'
+       echo ' reportFirstEvent            = cms.untracked.int32(1),'
+       echo ' reportEventInterval         = cms.untracked.int32(50),'
+       echo ' reportToFileAtPostEndRun    = cms.untracked.string("|gzip -9c>'prof_${prof}_${app}/igprof.${prof}_$f.ENDRUN.%R.%I.gz'"),'
+       echo ' reportToFileAtPostEndJob    = cms.untracked.string("|gzip -9c>'prof_${prof}_${app}/igprof.${prof}_$f.ENDJOB.%R.%I.gz'"),'
+       echo ' reportToFileAtPreEvent 	  = cms.untracked.string("|gzip -9c>'prof_${prof}_${app}/igprof.${prof}_$f.EV.%I.gz'"))'
+      ) > ${prof}_$f
+    done
+  done
+done
+
+# --------------------------------------------------------------------
+# Wait for particular message to show up in the log files.
+#  $1 = message to look for
+#  $2 = number of messages that need to exist, usually number
+#       of parallel cmsRun processes executing
+#  $3 = time to sleep between log file scans, in seconds
+waitfor() {
+  while [ $(grep "$1" $profdir/*.iglog 2>/dev/null | wc -l) != $2 ]; do sleep $3; done
+}
+
+# Save 'ps' listing output for the processes. Determine
+# the PIDs of the cmsRun processes running.
+psinfo() {
+  ps -lfC cmsRun > $profdir/ps1.txt
+  ps wwwuf -C cmsRun > $profdir/ps2.txt
+  pids="$(awk '{print $2}' < $profdir/ps2.txt | grep -v PID)"
+}
+
+# Save various process memory maps.
+#  $1 = id for saving the information.
+procmap() {
+  for pid in $pids; do
+    pmap -x $pid > $profdir/pmap-$pid-x$1.txt
+    pmap -d $pid > $profdir/pmap-$pid-d$1.txt
+    for f in /proc/$pid/{,s,numa_}maps; do
+      cat $f > $profdir/$(echo $f | tr / - | sed s/^-//).$1.txt
+    done
+  done
+}
+
+# Save some system information.
+#  $1 = id for saving the information.
+sysinfo() {
+  numactl --hardware > $profdir/numahw-$1.txt
+  cat /proc/meminfo > $profdir/meminfo-$1.txt
+  cat /proc/cpuinfo > $profdir/cpuinfo.txt
+}
+
+# --------------------------------------------------------------------
+# Run the applications under profiler, first under performance profile,
+# then under memory profiler. Generates "prof_[mp]p_<app>" directories
+# which contain all the information gathered for the run.
+for prof in pp mp; do
+  # First run the so-called step2 processing, aka reconstruction.
+  for app in MinBias_cfi recominbias; do
+    # Create profile directory, get system information, start process.
+    nproc=0 profdir=prof_${prof}_${app}
+    mkdir -p $profdir
+    sysinfo 1
+    for f in ${prof}_${app}_*.py; do
+      (time igprof -z -o $profdir/igprof.$f.gz -d -t cmsRun -$prof cmsRun $f) >& $profdir/$f.iglog </dev/null &
+      nproc=$(expr $nproc + 1)
+    done
+
+    # Wait for the application to finish intialisation then snapshot.
+    waitfor "Begin processing the 10th record" $nproc 5
+    psinfo
+    procmap 1
+    sysinfo 2
+
+    # Wait for the application to nearly reach the end, then snapshot.
+    waitfor "Begin processing the 140th record" $nproc 5
+    procmap 2
+    sysinfo 3
+
+    # Wait for the program to exit, then save the output files.
+    wait
+    mv $app*.root $profdir
+  done
+done
