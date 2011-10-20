@@ -1,11 +1,11 @@
-### RPM cms esc 11a
+### RPM cms esc 2010a
 
 %define webdoc_files %i/doc/
-Source: https://github.com/lat/esc/tarball/v%{realversion}
+Source: https://github.com/lat/esc/tarball/%{realversion}
 Requires: py2-sphinx igprof valgrind gdb
 
 %prep
-%setup -n esc
+%setup -n lat-esc-bc02149
 
 %build
 cd doc
