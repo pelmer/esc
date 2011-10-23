@@ -5,28 +5,57 @@ The goal of this step is to prepare your working environment for the ESC
 exercises.  At the end of this step you should have a reasonably workable
 environment for running the other exercises.
 
-1. You will work using *studNN* account created for you.
-    * You were assigned host 137.204.203.40 -- .51 to work on. Two students
-      share each server.
-    * Your home directory is ``/home/studNN`` and is local to the server.
-    * Your shell is `bash <http://www.gnu.org/s/bash/>`_
-    * Your NFS area is in ``/storage/nfs_esc11/studNN``
-    * Your GPFS area is in ``/storage/gpfs_esc11/studNN``
+You will work using *studNN* account created for you.
+  * You were assigned host 137.204.203.40 -- .51 to work on. Two students
+    share each server.
+  * Your home directory is ``/home/studNN`` and is local to the server.
+  * Your shell is `bash <http://www.gnu.org/s/bash/>`_
+  * Your NFS area is in ``/storage/nfs_esc11/studNN``
+  * Your GPFS area is in ``/storage/gpfs_esc11/studNN``
 
-   Below we use *stud01* as a general student account and 137.204.203.40 as
-   the general host alias.  When executing the commands, replace these with
-   the account number or host assigned to you.  SSH into your assigned host
-   now::
+Below we use *stud01* as a general student account and 137.204.203.40 as the
+general host alias.  When executing the commands, replace these with the
+account number or host assigned to you.  **IMPORTANT NOTE:** *The student
+computers will be uninstalled on Friday evening and all data on them will be
+destroyed. Please make sure you make a copy of everything valuable by the
+end of the Friday session!*
 
-      ssh stud01@137.204.203.40
-      echo $HOME $SHELL
-      mkdir -p .ssh
-      chmod 755 .ssh
-      ls -laF
+Simple configuration
+--------------------
 
-   **IMPORTANT NOTE:** *The student computers will be uninstalled on Friday
-   evening and all data on them will be destroyed. Please make sure you
-   make a copy of everything valuable by the end of the Friday session!*
+This is the minimal basic configuration you should follow at the very least.
+If you are working on Mac OS X or Linux laptop and moderately comfortable
+with SSH and would rather you use the editor on your local system, the more
+advanced steps below give an alternate extended configuration which makes
+working somewhat nicer and easier.
+
+1. SSH into your assigned host::
+
+     ssh stud01@137.204.203.40
+     echo $HOME $SHELL
+     ls -laF
+
+2. Get the school exercises material::
+
+     git clone git://github.com/lat/esc.git
+
+Advanced configuration
+----------------------
+
+The assumption for this more advanced section is that you prefer to work on
+your laptop, editing exercise code there. In parallel you will keep several
+terminal windows open on the student server, where you compile code and run
+other commands. We set up SSH keys so you can login to your server without
+constantly typing your password, plus some convenient name aliases so you do
+need to remember IP addresses.
+
+1. SSH into your assigned host::
+
+     ssh stud01@137.204.203.40
+     echo $HOME $SHELL
+     mkdir -p .ssh
+     chmod 755 .ssh
+     ls -laF
 
 2. If your laptop is Linux, Mac OS X, or if you use Cygwin on Windows, we
    recommend you keep a copy of all your exercise source code, notes etc.
@@ -105,54 +134,66 @@ environment for running the other exercises.
        ssh esc-stud01 rm -fr foo
        rm -fr /tmp/foo
 
-3. Get the school exercises material. If you did the previous step, then
-   do this on your laptop and ``rsync -av esc/ esc-stud01:esc/`` to your
-   student account, otherwise do this on the student server in your home
-   directory::
+3. Get the school exercises material on your laptop::
 
-     GIT_SSL_NO_VERIFY=true git clone https://github.com/lat/esc.git
-     # GIT_SSL_NO_VERIFY is needed on student servers, not otherwise
+     cd My/Dev/Area
+     git clone https://github.com/lat/esc.git
+
+     # If you get SSL error, 'export GIT_SSL_NO_VERIFY=true' first.
+     # The local firewall prevents use of 'git:' url style on your laptop.
+
+4. Synchronise to your student server::
+
+     rsync -av esc/ esc-stud01:esc/
 
    You can download a `zip file <https://github.com/lat/esc/zipball/master>`_
    or `tar ball <https://github.com/lat/esc/tarball/master>`_ from the
    `github web page <http://github.com/lat/esc>`_ if you don't have ``git``.
 
-4. Open one or more terminal windows and ssh into the student server, and
+   You can now edit sources on your laptop, and run the command above to sync
+   to the server. You can of course also run an editor on the server and sync
+   back to your laptop, which ever you feel more comfortable with. Do be
+   careful with rsync command syntax, however, it's easy to make mistakes.
+
+Finishing off
+-------------
+
+1. Open one or more terminal windows and ssh into the student server, and
    in each of them run the following environment setup::
 
      . /storage/software/main/env-gcc461.sh
 
-5. Check the following are working ok::
+2. Check the following are working ok::
 
      c++ -v 2>&1 | grep version  # should say 'gcc version 4.6.1 (GCC)'
      valgrind --version          # should say 'valgrind-3.6.1'
      igprof -h                   # should print simple help message
      which igprof-navigator      # should say full path
 
-6. Create a web area where you will put output from some exercises::
+3. Create a web area where you will put output from some exercises::
 
      mkdir -p /storage/nfs_esc11/stud01/public_html/cgi-bin/data
      ln -s /storage/nfs_esc11/stud01/public_html ~/public_html
      cp $(which igprof-navigator) ~/public_html/cgi-bin/igprof-navigator.py
      echo "<html><body><a href='cgi-bin/igprof-navigator.py'>My" \
        "igprof reports</a></body></html>" > ~/public_html/index.html
-     chmod 766 ~/public_html/cgi-bin
+     chmod 755 ~/public_html/cgi-bin
 
-7. View http://137.204.203.67/~stud01/ in your web browser, you should see
+4. View http://137.204.203.67/~stud01/ in your web browser, you should see
    the basic page you created above. Click on the link to profiles, it should
    produce some output -- for now it will in fact display an error message
    due to lack of profiles.
 
-8. You should be able to view some of these CMS profile examples:
+5. You should be able to view some of these CMS profile examples:
    `perf report <http://cern.ch/cms-service-sdtweb/igperf/vocms81/slc5_ia32_gcc434/360p1/navigator/minbias02_perf/>`_,
    `heap snapshot after 50 events <http://cern.ch/cms-service-sdtweb/igperf/vocms81/slc5_ia32_gcc434/360p1/navigator/minbias03.50_live/>`_,
    `total dynamic memory allocations <http://cern.ch/cms-service-sdtweb/igperf/vocms81/slc5_ia32_gcc434/360p1/navigator/minbias03_total/>`_.
 
-In subsequent exercises, you should have one more terminal windows open
-with ssh session to the student server, and source the environment setup
-script. You will normally use ``env-gcc461.sh``, but in some cases you
-will also use ``env-gcc451.sh``. **Always start each new exercise in a
-fresh new shell environment!**
+In subsequent exercises, you should have one more terminal windows open with
+ssh session to the student server, and source the environment setup script as
+shown below.  You will normally use ``env-gcc461.sh``, but in some cases you
+will also use ``env-gcc451.sh``. **Always start each new exercise in a fresh
+new shell environment!**
 
 If you are adventurous, you can build igprof standalone yourself following
 the `recipe on the web site <http://igprof.sourceforge.net/install.html>`_.
