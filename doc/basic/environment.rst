@@ -8,7 +8,7 @@ environment for running the other exercises.
 1. You will work using *studNN* account created for you.
     * You were assigned host 137.204.203.40 -- .51 to work on. Two students
       share each server.
-    * Your home directory is ``/home/studNN``
+    * Your home directory is ``/home/studNN`` and is local to the server.
     * Your shell is `bash <http://www.gnu.org/s/bash/>`_
     * Your NFS area is in ``/storage/nfs_esc11/studNN``
     * Your GPFS area is in ``/storage/gpfs_esc11/studNN``
@@ -21,6 +21,7 @@ environment for running the other exercises.
       ssh stud01@137.204.203.40
       echo $HOME $SHELL
       mkdir -p .ssh
+      chmod 755 .ssh
       ls -laF
 
    **IMPORTANT NOTE:** *The student computers will be uninstalled on Friday
@@ -35,7 +36,7 @@ environment for running the other exercises.
    * Generate a temporary SSH key and copy it to the right host::
 
        ssh-keygen -t rsa -C esc11_temp_key -f ~/.ssh/id_rsa_esc11
-       scp ~/.ssh/id_rsa_esc11.pub 137.204.203.40:.ssh/authorized_keys
+       scp ~/.ssh/id_rsa_esc11.pub stud01@137.204.203.40:.ssh/authorized_keys
 
    * If not on OS X, start an ``ssh-agent``::
 
@@ -110,7 +111,8 @@ environment for running the other exercises.
    student account, otherwise do this on the student server in your home
    directory::
 
-     git clone git://github.com/lat/esc.git
+     GIT_SSL_NO_VERIFY=true git clone https://github.com/lat/esc.git
+     # GIT_SSL_NO_VERIFY is needed on student servers, not otherwise
 
    You can download a `zip file <https://github.com/lat/esc/zipball/master>`_
    or `tar ball <https://github.com/lat/esc/tarball/master>`_ from the
@@ -119,7 +121,7 @@ environment for running the other exercises.
 4. Open one or more terminal windows and ssh into the student server, and
    in each of them run the following environment setup::
 
-     . /storage/software/tuura/env-gcc461.sh
+     . /storage/software/main/env-gcc461.sh
 
 5. Check the following are working ok::
 

@@ -1,22 +1,20 @@
-Playing with Containers
-=======================
+String memory use
+=================
 
 The goal of this exercise is to understand the memory use and performance of
-STL containers. You will get familiar with the `IgProf
-<http://igprof.sourceforge.net>`_ profiler tool.
+`std::string <http://www.cplusplus.com/reference/string/string/>`_. You will
+get familiar with the `IgProf <http://igprof.sourceforge.net>`_ profiler tool.
 
 Steps
 -----
 
-1. Copy the exercise to your own working area, such as ~/esc10::
+1. Set up your environment::
 
-       cd $HOME && mkdir -p esc10 && cd esc10
-       cp -rp /storage/software/tuura/2-containers .
-       cd 2-containers
+     . /storage/software/main/env-gcc461.sh
 
-2. Source the exercise environment::
+2. Go to the exercise directory::
 
-       . /storage/software/tuura/environment.sh
+     cd esc/exercises/memory
 
 3. Examine the little test programs in this directory.  You use them for
    dedicated little studies on container memory allocation behaviour:
@@ -26,15 +24,6 @@ Steps
 
    - `vs-build.cc <../exercises/memory/vs-build.cc>`_: Build a
      ``std::vector<std::string>`` one at a time.
-
-   - `vvvi-build-and-copy.cc <../exercises/memory/vvvi-build-and-copy.cc>`_:
-     Build triply nested vector of ints, and make a copy of it; drops profile
-     heap snapshots part way.  This example was used in the presentation.
-
-   - `vvvi-reserve.cc <../exercises/memory/vvvi-reserve.cc>`_: Same as
-     ``vvvi-build-and-snapshot.cc``, but uses the ``reserve()`` method
-     correctly to avoid vector resizes.  This example was used in the
-     presentation.
 
    - `vvs-build-and-copy.cc <../exercises/memory/vvs-build-and-copy.cc>`_:
      Same as ``vvvi-build-and-copy.cc``, but using doubly nested vector of
@@ -51,8 +40,6 @@ Steps
        igprof -mp ./ls-build
        igprof -mp ./vs-build
        igprof -mp ./vvs-build-and-copy
-       igprof -mp ./vvvi-build-and-copy
-       igprof -mp ./vvvi-reserve
 
 6. Analyse the profiles using::
 

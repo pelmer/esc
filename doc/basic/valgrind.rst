@@ -9,7 +9,7 @@ the basic mechanics of using valgrind; later exercises will go into more detail.
 
 1. Set up your environment::
 
-     . /storage/software/tuura/env-gcc461.sh
+     . /storage/software/main/env-gcc461.sh
 
 2. Build `memerror.cc <../exercises/basic/memerror.cc>`_::
 

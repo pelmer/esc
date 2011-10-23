@@ -1,4 +1,4 @@
-export CMS_PATH=$(cd $(dirname $0) && pwd)/current/sw.cms
+export CMS_PATH=/storage/software/main/current/sw.cms
 export SCRAM_ARCH=slc5_amd64_gcc451 VO_CMS_SW_DIR=$CMS_PATH
 . $VO_CMS_SW_DIR/cmsset_default.sh
 eval $(cd $VO_CMS_SW_DIR/$SCRAM_ARCH/cms/cmssw/CMSSW_4_4_1 && scram runtime -sh)

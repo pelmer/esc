@@ -7,15 +7,13 @@ The goal of this exercise is to locate some common memory errors using
 Steps
 -----
 
-1. Copy the exercise to your own working area, such as ``~/esc10``::
+1. Set up your environment::
 
-       cd $HOME && mkdir -p esc10 && cd esc10
-       cp -rp /storage/software/tuura/3-valgrind .
-       cd 3-valgrind
+     . /storage/software/main/env-gcc461.sh
 
-2. Source the exercise environment::
+2. Go to the exercise directory::
 
-       . /storage/software/tuura/environment32.sh
+     cd esc/exercises/memory
 
 3. Examine the little test programs in this directory.  You use them for
    dedicated little studies on container memory allocation behaviour:
@@ -32,13 +30,13 @@ Steps
 4. Build each program.  The command is mentioned in each source file.  To
    build all in one go::
 
-       grep -h Compile *.cc | sed 's|// Compile: ||' | sh -x
+     grep -h Compile *.cc | sed 's|// Compile: ||' | sh -x
 
 5. Run the programs under valgrind::
 
-       valgrind --num-callers=50 --leak-check=full ./uninitialised
-       valgrind --num-callers=50 --leak-check=full ./array-smash
-       valgrind --num-callers=50 --leak-check=full ./stack-smash
+     valgrind --num-callers=50 --leak-check=full ./uninitialised
+     valgrind --num-callers=50 --leak-check=full ./array-smash
+     valgrind --num-callers=50 --leak-check=full ./stack-smash
 
 6. Find the problems, fix them, recompile and repeat until the issues are
    fixed.

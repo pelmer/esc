@@ -13,15 +13,13 @@ Steps
 Memory usage analysis of a full LHC environment, using CMS' DQM reconstruction
 and analysis applications.
 
-1. Copy the exercise to your own working area, such as ``~/esc10``::
+1. Set up your environment::
 
-       cd $HOME && mkdir -p esc10 && cd esc10
-       cp -rp /storage/software/tuura/5-large-app .
-       cd 5-large-app
+     . /storage/software/main/env-gcc451.sh
 
-2. Source the exercise environment::
+2. Go to the exercise directory::
 
-       . /storage/software/tuura/environment.sh
+     cd esc/exercises/large-app
 
 3. Examine `run-and-profile <../exercises/memory/run-and-profile>`_, a
    script which does the work of running two DQM-related executables under
@@ -30,10 +28,10 @@ and analysis applications.
 
 4. Run the script in your own working directory::
 
-       (time . ./run-and-profile) >& output.txt </dev/null &
+     (time . ./run-and-profile) >& output.txt </dev/null &
 
 5. While the program is running, open a few other terminal windows.  Run
-   ``top`` in one -- see exercise :doc:`basic` for making it more useful --
+   ``top`` in one -- see exercise :doc:`process` for making it more useful --
    and examine the text files in the ``prof_*`` directories, especially the
    ``*.iglog`` files to see what is going on.  It will take some time, about
    ten minutes, for everything to run, so use the time to get familiar with
@@ -41,15 +39,15 @@ and analysis applications.
 
 6. Generate profile analysis for all the profiles with the command::
 
-       for f in prof_mp_*/igprof*.gz; do
-         igprof-analyse -d -v -g -r MEM_TOTAL $f >& $f.res.tot
-         igprof-analyse -d -v -g -r MEM_LIVE $f >& $f.res.live
-         case $f in *.ENDJOB* )
-           igprof-analyse -d -v -g -r MEM_LIVE -b \
-             $(echo $f | sed 's|\.END.*|.EV.51.gz|') \
-             $f >& $f.res.livediff ;;
-          esac
-        done
+     for f in prof_mp_*/igprof*.gz; do
+       igprof-analyse -d -v -g -r MEM_TOTAL $f >& $f.res.tot
+       igprof-analyse -d -v -g -r MEM_LIVE $f >& $f.res.live
+       case $f in *.ENDJOB* )
+         igprof-analyse -d -v -g -r MEM_LIVE -b \
+           $(echo $f | sed 's|\.END.*|.EV.51.gz|') \
+           $f >& $f.res.livediff ;;
+       esac
+     done
 
    This generates the following profile results:
 

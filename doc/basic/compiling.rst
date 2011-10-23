@@ -7,7 +7,7 @@ mixed 32-/64-bit GCC 4.5.1 which you can experiment with.
 
 1. Build 64-bit `cputicks.cc <../exercises/basic/cputicks.cc>`_ with GCC 4.6.1::
 
-     . /storage/software/tuura/env-gcc461.sh
+     . /storage/software/main/env-gcc461.sh
      which c++
      cd esc/exercises/basic
      c++ -o cputicks cputicks.cc
@@ -16,7 +16,7 @@ mixed 32-/64-bit GCC 4.5.1 which you can experiment with.
 
 2. Build 64-bit `cputicks.cc <../exercises/basic/cputicks.cc>`_ with GCC 4.5.1::
 
-     . /storage/software/tuura/env-gcc451.sh
+     . /storage/software/main/env-gcc451.sh
      which c++
      cd esc/exercises/basic
      c++ -o cputicks cputicks.cc
@@ -25,7 +25,7 @@ mixed 32-/64-bit GCC 4.5.1 which you can experiment with.
 
 3. Build 32-bit `cputicks.cc <../exercises/basic/cputicks.cc>`_ with GCC 4.5.1::
 
-     . /storage/software/tuura/env-gcc451.sh
+     . /storage/software/main/env-gcc451.sh
      which c++-32
      cd esc/exercises/basic
      c++-32 -o cputicks cputicks.cc

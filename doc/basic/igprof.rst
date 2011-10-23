@@ -15,7 +15,7 @@ sure you can create a dummy profile for simply running ``ls``.
 
 1. Set up your environment::
 
-     . /storage/software/tuura/env-gcc461.sh
+     . /storage/software/main/env-gcc461.sh
 
 2. Create your very first igprof report on ``ls``::
 
@@ -33,7 +33,7 @@ using igprof statistical performance profiler.
 
 1. Set up your environment::
 
-     . /storage/software/tuura/env-gcc461.sh
+     . /storage/software/main/env-gcc461.sh
 
 2. Run the test program under igprof performance profiler::
 
