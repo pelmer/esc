@@ -17,8 +17,7 @@ Browse `exercise material <exercises/>`_.
    :numbered:
    :maxdepth: 2
 
-   tuning/index
-   igprof-env
+   basic/index
    c++/index
    memory/index
    math/index
