@@ -32,7 +32,8 @@ clean:
 
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
-	rsync -a --delete ../exercises/ $(BUILDDIR)/html/exercises/
+	rsync -a --delete --delete-excluded --exclude '*~' --exclude '*.swp' \
+	   ../exercises/ $(BUILDDIR)/html/exercises/
 	echo "Options +Indexes" > $(BUILDDIR)/html/exercises/.htaccess
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
