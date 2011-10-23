@@ -1,4 +1,4 @@
-// Compile with c++ -g -W -Wall -ansi -pedantic -o word-list word-list.cc -ldl -lpthread
+// Compile: c++ -g -W -Wall -ansi -pedantic -o word-list word-list.cc -ldl -lpthread
 #include <string>
 #include <vector>
 #include <iterator>

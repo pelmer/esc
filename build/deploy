@@ -13,9 +13,9 @@ deploy_esc_sw()
       ;;
 
     comp )
-      deploy_pkg comp cms+esc-webdoc 2011a
+      deploy_pkg comp cms+esc-webdoc 2011b
       rm -f $root/current/apps/esc-webdoc
-      deploy_pkg comp cms+esc 2011a
+      deploy_pkg comp cms+esc 2011b
 
       rm -f $root/env-*.sh
       for f in $project_config/env-*.sh; do

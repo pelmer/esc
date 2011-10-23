@@ -85,7 +85,8 @@ Steps
    detailed information about the NUMA features of the system, in particular
    how many nodes the operating system thinks it is scheduling for::
 
-       grep -e '^ BIOS' -e NUMA /var/log/dmesg
+       grep -e '^ BIOS' /var/log/dmesg
+       awk '/^NUMA/,/^ACPI/ {print} {}' /var/log/dmesg
        numactl --hardware
        numactl --show
        numastat

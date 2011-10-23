@@ -29,7 +29,6 @@ Code
 ----
 
 * `templates.cxx <../exercises/c++/templates.cxx>`_
-* `explicit-templates-inst.cxx <../exercises/c++/explicit-template-inst.cxx>`_
 
 References
 ----------

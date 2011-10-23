@@ -46,9 +46,8 @@ environment for running the other exercises.
 
        ssh-add ~/.ssh/id_rsa_esc11
 
-   * Add SSH configuration for your student host.  Use the appropriate
-     student account and IP address below.  You can of course add this
-     chunk with your favourite editor if you prefer.
+   * Add SSH configuration for your student host.  You can of course add
+     this chunk with your favourite editor if you prefer.
 
      ::
 
@@ -137,6 +136,7 @@ environment for running the other exercises.
      cp $(which igprof-navigator) ~/public_html/cgi-bin/igprof-navigator.py
      echo "<html><body><a href='cgi-bin/igprof-navigator.py'>My" \
        "igprof reports</a></body></html>" > ~/public_html/index.html
+     chmod 766 ~/public_html/cgi-bin
 
 7. View http://137.204.203.67/~stud01/ in your web browser, you should see
    the basic page you created above. Click on the link to profiles, it should

@@ -23,7 +23,7 @@ sure you can create a dummy profile for simply running ``ls``.
      igprof-analyse --sqlite -d -v -g ls-test.gz |
        sqlite3 ~/public_html/cgi-bin/data/ls-test.sql3
 
-3. View the report at http://137.204.203.59/~studNN/cgi-bin/igprof-navigator.py/ls-test/
+3. View the report at http://137.204.203.67/~stud01/cgi-bin/igprof-navigator.py/ls-test/
 
 Basic performance profile
 -------------------------
@@ -61,7 +61,7 @@ using igprof statistical performance profiler.
      <... and so on ...>
 
 4. Generate the same profile in web-viewable database, view the profile at
-   http://137.204.203.59/~studNN/cgi-bin/igprof-navigator.py/cputicks/ ::
+   http://137.204.203.67/~stud01/cgi-bin/igprof-navigator.py/cputicks/ ::
 
      rm -f ~/public_html/cgi-bin/data/cputicks.sql3
      igprof-analyse --sqlite -d -v -g cputicks.gz |

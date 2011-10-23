@@ -1,4 +1,4 @@
-// Compile: c++ -g -W -Wall -Werror -ansi -pedantic -o uninitialised uninitialised.cc -ldl -lpthread
+// Compile: c++ -g -W -Wall -ansi -pedantic -o uninitialised uninitialised.cc -ldl -lpthread
 #include <cstdio>
 #include <cstring>
 
