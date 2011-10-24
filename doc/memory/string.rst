@@ -33,16 +33,25 @@ Steps
 4. Build each program.  The command is mentioned in each source file.  To
    build all in one go::
 
-       grep -h Compile *.cc | sed 's|// Compile: ||' | sh -x
+     grep -h Compile *.cc | sed 's|// Compile: ||' | sh -x
 
 5. Run the programs under the igprof profiler::
 
-       igprof -mp ./ls-build
-       igprof -mp ./vs-build
-       igprof -mp ./vvs-build-and-copy
+     rm -f *.gz
+     igprof -mp ./ls-build
+     igprof -mp ./vs-build
+     igprof -mp ./vvs-build-and-copy
 
 6. Analyse the profiles using::
 
-       for f in *.gz; do
-         igprof-analyse -d -v -g -r MEM_TOTAL $f 2>&1 | less -SX
-       done
+     for f in *.gz; do
+       igprof-analyse --sqlite -d -v -g -r MEM_TOTAL $f |
+         sqlite3 ~/public_html/cgi-bin/data/${f}_tot.sql3
+       igprof-analyse --sqlite -d -v -g -r MEM_LIVE $f |
+         sqlite3 ~/public_html/cgi-bin/data/${f}_live.sql3
+       igprof-analyse --sqlite -d -v -g -r MEM_LIVE --value peak $f |
+         sqlite3 ~/public_html/cgi-bin/data/${f}_live_peak.sql3
+     done
+
+7. This results in profiles such as
+   http://137.204.203.67/~stud01/cgi-bin/igprof-navigator.py/vvs-copy.gz_tot/
