@@ -220,7 +220,7 @@ int main(int argc, char* argv[])
     exit(2);
   }
   out << endl;
-  for (i = 0; i < v.size(); i++)
+  for (i = 0; i < (long) v.size(); i++)
     out << v[i].s << " :\t"
 	<< v[i].t * (double(1000000)/n)/CLOCKS_PER_SEC
 	<< " ms" << endl;

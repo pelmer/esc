@@ -84,7 +84,7 @@ void  C::f(int i)    { x  += i; }
 void  C::ff(int i)   { xx += i; }
 void  CC::f(int i)   { x  += i; }
 void  CC::ff(int i)  { xx += i; }
-template<class T, class T2> inline T* cast(T* p, T2* q)
+template<class T, class T2> inline T* cast(T*, T2* q)
 {
     glob++;
     return dynamic_cast<T*>(q);
