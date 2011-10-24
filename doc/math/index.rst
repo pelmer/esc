@@ -12,7 +12,7 @@ For environment setup, you can either do as shown on slides::
 
 Or use the git area on the student server::
 
-  cd esc/math
+  cd esc/exercises/math
   . ./setup.sh
 
 Then proceed as shown on the slides::
