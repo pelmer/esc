@@ -27,8 +27,6 @@ Memory locality
    :maxdepth: 1
 
    process
-   shlib
-   soa
    size
 
 Memory debugging
@@ -37,5 +35,6 @@ Memory debugging
 .. toctree::
    :maxdepth: 1
 
+   shlib
    word-list
    large-app
