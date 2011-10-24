@@ -1,14 +1,26 @@
 Compilers, SIMD and floating point
 ==================================
 
-Browse `exercise material <../exercises/math/>`_.
+Browse `exercise material <../exercises/math/>`_.  The exercises are included in the
+`slides <http://agenda.infn.it/getFile.py/access?contribId=5&sessionId=0&resId=0&materialId=slides&confId=3839>`_.
 
-.. toctree::
-   :maxdepth: 1
+For environment setup, you can either do as shown on slides::
 
-   startup
-   fpopt
-   approx
-   float
-   simd
-   algebra
+  tar -zxf /storage/software/innocente/FPOptimization2011.tg
+  cd FPOptimization2011
+  source setup.sh
+
+Or use the git area on the student server::
+
+  cd esc/math
+  . ./setup.sh
+
+Then proceed as shown on the slides::
+
+  which c++-470 
+  c++-470 -v 
+
+  cd exercises 
+  make afloat 
+  ./afloat_O2 
+  ./afloat_fas

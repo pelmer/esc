@@ -4,7 +4,7 @@
 #  --param vect-max-version-for-alias-checks=30 required due to GCC limitations
 #  -ftree-loop-if-convert-stores   check GCC man page
 
-CXX = c++ ${ADDOPT} -std=gnu++0x -Wall -Wno-format  -Wstrict-overflow -Wunsafe-loop-optimizations -msse4.2 -march=corei7 
+CXX = /opt/gcc470/bin/c++-470  ${ADDOPT} -std=gnu++0x -Wall -Wno-format  -Wstrict-overflow -Wunsafe-loop-optimizations -msse4.2 -march=corei7 
 # -march=native
 
 
