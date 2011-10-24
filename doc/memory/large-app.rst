@@ -21,7 +21,7 @@ and analysis applications.
 
      cd esc/exercises/large-app
 
-3. Examine `run-and-profile <../exercises/memory/run-and-profile>`_, a
+3. Examine `run-and-profile <../exercises/large-app/run-and-profile>`_, a
    script which does the work of running two DQM-related executables under
    igprof memory profiling.  You do not need to fully understand what the
    script does, but it's helpful to have an idea.
