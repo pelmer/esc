@@ -1,12 +1,12 @@
-Compilers, SIMD and floating point
-==================================
+Floating point computation: accuracy, optimization, vectorization
+=================================================================
 
 Browse `exercise material <../exercises/math/>`_.  The exercises are included in the
 `slides <http://agenda.infn.it/getFile.py/access?contribId=5&sessionId=0&resId=0&materialId=slides&confId=3839>`_.
 
 For environment setup, you can either do as shown on slides::
 
-  tar -zxf /storage/software/innocente/FPOptimization2011.tg
+  tar -zxf /storage/software/innocente/FPOptimization2011.tgz
   cd FPOptimization2011
   source setup.sh
 
@@ -23,4 +23,4 @@ Then proceed as shown on the slides::
   cd exercises 
   make afloat 
   ./afloat_O2 
-  ./afloat_fas
+  ./afloat_fast
