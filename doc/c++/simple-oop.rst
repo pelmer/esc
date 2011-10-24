@@ -2,28 +2,28 @@ Simple OOP benchmarks and optimization levels
 =============================================
 
 The goal of this exercise is to understand the relative cost of various C++
-operations and the effect of different compiler optimization levels.  You
-should:
+operations and the effect of different compiler optimization levels.
 
-1. Inspect the two benchmark-\* files linked below
+Steps
+-----
 
-2. Make sure you understand everything that is being done
+1. Set up your environment::
 
-3. Compile with different optimization levels (-O0, -O1, ..., -O3)
+     . /storage/software/main/env-gcc461.sh
 
-4. Do you obtain the same results shown in the presentation?
+2. Go to the exercise directory::
 
-5. Interpret any discrepancies you see.
+     cd esc/exercises/c++
 
-Code
-----
+3. Review exercise code, making sure you understand everything that is being done:
+    * `benchmark-lib.h <../exercises/c++/benchmark-lib.h>`_
+    * `benchmark-main.cc <../exercises/c++/benchmark-main.cc>`_
 
-* `benchmark-lib.h <../exercises/c++/benchmark-lib.h>`_
-* `benchmark-main.cc <../exercises/c++/benchmark-main.cc>`_
+4. Compile with different optimisation levels -O0 / -O1 / -O2 / -O3::
 
-References
-----------
+     for opt in O{0,1,2,3}; do
+       c++ -o benchmark-$opt -$opt -g -W -Wall benchmark-main.cc
+     done
 
-* `gcc 4.5.1 optimization levels
-  <http://gcc.gnu.org/onlinedocs/gcc-4.5.1/gcc/Optimize-Options.html>`_ (Edit
-  URL to see options for other versions)
+5. Do you obtain the same results shown in the presentation when running
+   these programs?  Interpret any discrepancies you see.

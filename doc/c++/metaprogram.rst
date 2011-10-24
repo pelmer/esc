@@ -4,16 +4,29 @@ Template meta-programming
 The goal of this exercise is to understand the costs of template
 meta-programming in terms of code size and CPU performance.
 
-1. Examine and understand the templated factorial function and dot-product in
-   factorial.cxx below
+Steps
+-----
 
-2. Compile with -save-temps and inspect assembly code to make sure the proper
-   lierals have been correctly directly inserted into the assembly
+1. Set up your environment::
 
-Code
-----
+     . /storage/software/main/env-gcc461.sh
 
-* `factorial.cxx <../exercises/c++/factorial.cxx>`_
+2. Go to the exercise directory::
+
+     cd esc/exercises/c++
+
+3. Review exercise code, examine and understand the templated factorial
+   function and dot-product
+    * `factorial.cxx <../exercises/c++/factorial.cxx>`_
+
+4. Compile and inspect assembly code to make sure the proper literals have
+   been correctly directly inserted into the assembly::
+
+     c++ -o factorial -g -W -Wall -Werror -save-temps factorial.cxx
+     objdump -rCSd --no-show-raw factorial # or: less -SX factorial.s
+
+     c++ -o factorialO2 -g -O2 -W -Wall -Werror -save-temps factorial.cxx
+     objdump -rCSd --no-show-raw factorialO2 # or: less -SX factorial.s
 
 References
 ----------
