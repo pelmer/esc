@@ -17,6 +17,7 @@ Steps
 
 3. Review exercise code, examine and understand the templated factorial
    function and dot-product
+
     * `factorial.cxx <../exercises/c++/factorial.cxx>`_
 
 4. Compile and inspect assembly code to make sure the proper literals have
