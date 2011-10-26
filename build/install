@@ -6,3 +6,13 @@ rm -fr cfg/esc && ln -s ../esc/build cfg/esc
 
 $PWD/cfg/Deploy -A slc5_amd64_gcc461 -r comp=comp.pre.lat -t sw -s 'prep sw post' $PWD esc/comp
 $PWD/cfg/Deploy -A slc5_amd64_gcc451 -r comp=comp.pre.lat -t sw -s 'prep sw post' $PWD esc/cmssw
+
+export CVSROOT=:pserver:anonymous@cmssw.cvs.cern.ch:/cvs/CMSSW
+cvs login
+
+cd sw.cms
+cvs co SITECONF/T1_IT_CNAF
+(cd SITECONF; ln -s T1_IT_CNAF local)
+
+# copy /store/relval/CMSSW_4_4_1/RelValTTbar/GEN-SIM-DIGI-RAW-HLTDEBUG/START44_V6-v1/0055/2680E635-9AF7-E011-8AB0-00248C0BE016.root
+# into /storage/software/main/2680E635-9AF7-E011-8AB0-00248C0BE016.root
