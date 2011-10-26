@@ -1,10 +1,11 @@
 # 
-include ../gcc.def
+include ../make.def
 
 EXES=hello_par$(EXE) pi_spmd_simple$(EXE) pi_spmd_final$(EXE) \
      pi_mc_par_array$(EXE) \
      pi_loop$(EXE) pi_mc$(EXE) pi_mc_par$(EXE) \
-     matmul_par$(EXE) prod_cons_par$(EXE) linked_omp3_tasks$(EXE)
+     matmul_par$(EXE) prod_cons_par$(EXE) linked_omp3_tasks$(EXE) \
+     linked_omp25$(EXE) linked_cpp$(EXE) mandel_par$(EXE)
 all: $(EXES)
 
 pi_mc_par_array$(EXE): pi_mc_par_array.$(OBJ) 
@@ -37,14 +38,23 @@ prod_cons_par$(EXE): prod_cons_par.$(OBJ)
 linked_omp3_tasks$(EXE): linked_omp3_tasks.$(OBJ) 
 	$(CLINKER) $(OPTFLAGS) -o linked_omp3_tasks linked_omp3_tasks.$(OBJ) $(LIBS)
 
+linked_cpp$(EXE): linked_cpp.$(OBJ) 
+	$(CPP) $(OPTFLAGS) -o linked_cpp linked_cpp.$(OBJ) $(LIBS)
+
+linked_omp25$(EXE): linked_omp25.$(OBJ) 
+	$(CLINKER) $(OPTFLAGS) -o linked_omp25 linked_omp25.$(OBJ) $(LIBS)
+
+mandel_par$(EXE): mandel_par.$(OBJ) 
+	$(CLINKER) $(OPTFLAGS) -o mandel_par mandel_par.$(OBJ) $(LIBS)
+
 clean:
 	$(RM) $(EXES) *.$(OBJ)
 
 .SUFFIXES:
-.SUFFIXES: .c .$(OBJ)
+.SUFFIXES: .c .cpp  .$(OBJ)
 
 .c.$(OBJ):
 	$(CC) $(CFLAGS) -c $<
 
 .cpp.$(OBJ):
-	$(CC) $(CFLAGS) -c $<
+	$(CPP) $(CFLAGS) -c $<

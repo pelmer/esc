@@ -1,4 +1,3 @@
-
 /*
 **  PROGRAM: A simple serial producer/consumer program
 **
@@ -40,17 +39,18 @@ double Sum_array(int length, double *a)
   
 int main()
 {
-  double *A, sum, starttime, runtime;
+  double *A, sum, runtime;
   int flag = 0;
 
   A = (double *)malloc(N*sizeof(double));
 
-  starttime = omp_get_wtime();
+  runtime = omp_get_wtime();
+
   fill_rand(N, A);        // Producer: fill an array of data
 
   sum = Sum_array(N, A);  // Consumer: sum the array
    
-  runtime = omp_get_wtime() - starttime;
+  runtime = omp_get_wtime() - runtime;
 
   printf(" In %f seconds, The sum is %f \n",runtime,sum);
 }

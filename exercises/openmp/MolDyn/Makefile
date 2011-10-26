@@ -1,6 +1,6 @@
 # Makefile for the molecular dynamics code
 
-include ../gcc.def
+include ../make.def
 
 
 #

@@ -1,14 +1,10 @@
-#include <omp.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "omp.h"
 
-
-#ifndef N
 #define N 5
-#endif
-#ifndef FS
 #define FS 38
-#endif
+#define NMAX 10
 
 struct node {
    int data;
@@ -16,12 +12,7 @@ struct node {
    struct node* next;
 };
 
-struct node* init_list(struct node* p);
-void processwork(struct node* p); 
-int fib(int n); 
-
-int fib(int n) 
-{
+int fib(int n) {
    int x, y;
    if (n < 2) {
       return (n);
@@ -34,16 +25,12 @@ int fib(int n)
 
 void processwork(struct node* p) 
 {
-   int n, temp;
+   int n;
    n = p->data;
-   temp = fib(n);
-
-   p->fibdata = temp;
-
+   p->fibdata = fib(n);
 }
 
-struct node* init_list(struct node* p) 
-{
+struct node* init_list(struct node* p) {
     int i;
     struct node* head = NULL;
     struct node* temp = NULL;
@@ -63,39 +50,64 @@ struct node* init_list(struct node* p)
     return head;
 }
 
-int main() 
-{
+int main(int argc, char *argv[]) {
      double start, end;
      struct node *p=NULL;
      struct node *temp=NULL;
      struct node *head=NULL;
-
+     struct node *parr[NMAX]; 
+     int i, count=0;
+     
      printf("Process linked list\n");
      printf("  Each linked list node will be processed by function 'processwork()'\n");
      printf("  Each ll node will compute %d fibonacci numbers beginning with %d\n",N,FS);      
-
+ 
      p = init_list(p);
      head = p;
 
+
      start = omp_get_wtime();
+     {
+        while (p != NULL) {
+		   processwork(p);
+		   p = p->next;
+        }
+     }
 
-	#pragma omp parallel 
-	{
-            #pragma omp master
-                  printf("Threads:      %d\n", omp_get_num_threads());
+     end = omp_get_wtime();
 
-		#pragma omp single
-		{
-			p=head;
-			while (p) {
-				#pragma omp task firstprivate(p) //first private is required
-				{
-					processwork(p);
-				}
-			  p = p->next;
-		   }
-		}
-	}
+     printf("serial Compute Time: %f seconds\n", end - start);
+
+
+     p = head;
+
+     start = omp_get_wtime();
+     {
+        // count number of items in the list.  Strictly speaking this isn't 
+        // needed since we know there are N elements in the list.  But in 
+        // most cases you don't know this and need to count nodes. 
+        while (p != NULL) {
+	  	   p = p->next;
+               count++;
+        }
+      
+        // traverse the list and collect pointers into an array.
+        p = head;
+        for(i=0; i<count; i++) {
+               parr[i] = p;
+               p = p->next;
+        }
+       
+        // do the work in parallel 
+        #pragma omp parallel 
+        {
+           #pragma omp single
+               printf(" %d threads \n",omp_get_num_threads());
+           #pragma omp for schedule(static,1)
+           for(i=0; i<count; i++)
+		   processwork(parr[i]);
+        }
+     }
 
      end = omp_get_wtime();
      p = head;
@@ -105,7 +117,7 @@ int main()
         free (p);
         p = temp;
      }  
-	 free (p);
+     free (p);
 
      printf("Compute Time: %f seconds\n", end - start);
 

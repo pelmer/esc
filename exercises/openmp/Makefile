@@ -1,8 +1,8 @@
 # 
 
-include gcc.def
+include make.def
 
-EXES=hello$(EXE) pi$(EXE) matmul$(EXE) pi_mc$(EXE) prod_cons$(EXE) linked$(EXE)
+EXES=hello$(EXE) pi$(EXE) matmul$(EXE) pi_mc$(EXE) prod_cons$(EXE) linked$(EXE) mandel$(EXE)
 
 all: $(EXES)
 
@@ -24,10 +24,11 @@ prod_cons$(EXE): prod_cons.$(OBJ)
 linked$(EXE): linked.$(OBJ) 
 	$(CLINKER) $(OPTFLAGS) -o linked linked.$(OBJ) $(LIBS)
 
-
+mandel$(EXE): mandel.$(OBJ)
+	$(CLINKER) $(OPTFLAGS) -o mandel mandel.$(OBJ) $(LIBS)
 
 clean:
-	$(RM) -f $(EXES) *.$(OBJ) *~
+	$(RM) $(EXES) *.$(OBJ)
 
 .SUFFIXES:
 .SUFFIXES: .c .$(OBJ)
