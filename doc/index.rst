@@ -22,3 +22,4 @@ Browse `exercise material <exercises/>`_.
    c++/index
    memory/index
    openmp/index
+   io/index
