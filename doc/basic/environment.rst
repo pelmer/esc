@@ -37,7 +37,7 @@ working somewhat nicer and easier.
 
 2. Get the school exercises material::
 
-     git clone git://github.com/lat/esc.git
+     git clone git://github.com/pelmer/esc.git
 
 Advanced configuration
 ----------------------
@@ -64,8 +64,8 @@ need to remember IP addresses.
 
    * Generate a temporary SSH key and copy it to the right host::
 
-       ssh-keygen -t rsa -C esc11_temp_key -f ~/.ssh/id_rsa_esc11
-       scp ~/.ssh/id_rsa_esc11.pub stud01@137.204.203.40:.ssh/authorized_keys
+       ssh-keygen -t rsa -C esc12_temp_key -f ~/.ssh/id_rsa_esc11
+       scp ~/.ssh/id_rsa_esc12.pub stud01@137.204.203.40:.ssh/authorized_keys
 
    * If not on OS X, start an ``ssh-agent``::
 
@@ -73,7 +73,7 @@ need to remember IP addresses.
 
    * Add the just-generated key to your ``ssh-agent``::
 
-       ssh-add ~/.ssh/id_rsa_esc11
+       ssh-add ~/.ssh/id_rsa_esc12
 
    * Add SSH configuration for your student host.  You can of course add
      this chunk with your favourite editor if you prefer.
@@ -84,7 +84,7 @@ need to remember IP addresses.
          Host esc-*
            User stud01
            PubkeyAuthentication yes
-           IdentityFile ~/.ssh/id_rsa_esc11
+           IdentityFile ~/.ssh/id_rsa_esc12
 
          Host esc-stud01
            HostName 137.204.203.40
