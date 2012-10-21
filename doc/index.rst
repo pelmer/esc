@@ -1,6 +1,6 @@
-.. http://web.infn.it/esc11/images/template/header2011_1000x260v6.jpg
-.. image:: header2011_1000x260v6.gif
-   :alt: Third INFN international school on architectures, tools and
+.. http://web.infn.it/esc12/images/template/esc12/header2012red1.jpg
+.. image:: header2012red1.jpg
+   :alt: Fourth INFN international school on architectures, tools and
          methodologies for developing efficient large scale scientific
          computing applications
    :align: center
@@ -8,7 +8,7 @@
    :height: 260
    :scale: 66
 
-ESC11 Exercises
+ESC12 Exercises
 ===============
 
 Browse `exercise material <exercises/>`_.

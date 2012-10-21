@@ -9,9 +9,9 @@ source_suffix = '.rst'
 source_encoding = 'utf-8'
 master_doc = 'index'
 project = 'ESC exercises'
-copyright = 'Fermilab and CERN'
-version = '2011'
-release = '2011'
+copyright = 'Fermilab, CERN, Princeton University'
+version = '2012'
+release = '2012'
 today_fmt = '%B %d, %Y'
 #unused_docs = []
 #exclude_trees = []
@@ -27,7 +27,7 @@ autoclass_content = 'both'
 html_theme = 'nature'
 #html_theme_options = {}
 #html_theme_path = []
-html_title = "ESC11 exercises"
+html_title = "ESC12 exercises"
 #html_short_title = None
 #html_logo = None
 #html_favicon = None
@@ -48,7 +48,7 @@ latex_paper_size = 'a4'
 #latex_font_size = '10pt'
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'ESC.tex', u'ESC11 Exercises',
+  ('index', 'ESC.tex', u'ESC12 Exercises',
    u'Lassi Tuura', 'manual'),
 ]
 
