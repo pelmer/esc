@@ -9,7 +9,7 @@ Steps
 
 1. Set up your environment::
 
-     . /storage/software/main/env-gcc461.sh
+     . /storage/software/env-gcc472.sh
 
 2. Go to the exercise directory::
 

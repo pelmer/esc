@@ -554,7 +554,8 @@ inline float vexpf(float x) { return cephes::expf(x);}
 inline float vlogf(float x) { return cephes::logf(x);}
 
 
-inline float vexp(double x) { return cephes::exp(x);}
+inline double vexp(double x) { return cephes::exp(x);}
+inline double vlog(double x) { return cephes::log(x);}
 
 
 DECL_SCALAR_FN_BENCH(vsincosf);
@@ -563,6 +564,7 @@ DECL_SCALAR_FN_BENCH(vexpf);
 DECL_SCALAR_FN_BENCH(vlogf);
 
 DECL_SCALAR_FN_BENCH(vexp);
+DECL_SCALAR_FN_BENCH(vlog);
 
 
 
@@ -699,6 +701,7 @@ int main() {
   run_bench("cephes::logf", bench_vlogf);
 
   run_bench("cephes::exp", bench_vexp);
+  run_bench("cephes::log", bench_vlog);
 
 
 

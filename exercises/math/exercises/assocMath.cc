@@ -18,6 +18,13 @@ float v0[1024];
 float v1[1024];
 float v2[1024];
 float v3[1024];
+
+float summ() {
+  float s=0;
+  for (int i=0; i!=1024;++i)
+    s +=v1[i]*v2[i];
+  return s;
+}
 void vdiv() {
   for (int i=0; i!=1024;++i)
     v0[i]=v1[i]/v2[i]/v3[i];

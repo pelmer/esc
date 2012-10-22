@@ -21,6 +21,7 @@ int main(int npar, char * []) {
   
   printf("a=%g b=%g s=%g z=%g t=%g\n",a,b,s,z,t);
   printf("a=%a b=%a s=%a z=%a t=%a\n",a,b,s,z,t);
+  printf("101 = %a\n",float(101));
   printf("nextafterf(s,maxf) =  %g %a\n",nextafterf(s,maxf),nextafterf(s,maxf));
   printf("nextafterf(s,maxf)-s = %g %a\n\n\n",nextafterf(s,maxf)-s,nextafterf(s,maxf)-s);
 

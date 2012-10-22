@@ -42,7 +42,8 @@ namespace cephes {
     static const double LOG2Ed  =  1.4426950408889634073599;     /* 1/log(2) */
     static const double C1d = 6.93145751953125E-1;
     static const double C2d = 1.42860682030941723212E-6;
-
+    static const double SQRTH =0.70710678118654752440;
+    
 
 
   }
@@ -382,15 +383,15 @@ namespace cephes {
   
 
 
-  inline double ll2d(long long x) {
-    union { double f; long long i; } tmp;
+  inline double ll2d(unsigned long long x) {
+    union { double f; unsigned long long i; } tmp;
     tmp.i=x;
     return tmp.f;
   }
   
   
-  inline long long d2ll(double x) {
-    union { double f; long long i; } tmp;
+  inline unsigned long long d2ll(double x) {
+    union { double f; unsigned long long i; } tmp;
     tmp.f=x;
     return tmp.i;
   }
@@ -441,10 +442,99 @@ namespace cephes {
     // u.s[3] = (unsigned short)((n<< 4) & 0x7FF0);
     // u.i[1] =  n <<20;
     
-    return x * ll2d( (long long)(n) <<52);
+    return x * ll2d( (unsigned long long)(n) <<52);
     
   }
 
+  inline
+  double log(double x){  
+    using namespace cephes_details;
+    
+    double input_x=x;
+    
+    double y, z;
+    
+    double px,qx;
+    
+    /* separate mantissa from exponent */
+    /* Note, we shoudl use frexp is used so that denormal numbers
+     * will be handled properly.
+     */
+    
+    unsigned long long n = d2ll(x);
+    
+    unsigned long long le = ((n >> 52) & 0x7ffL);
+    int e = le;
+    double fe =(e-1023);
+    n &=0xfffffffffffffLL;
+    const unsigned long long p05 = d2ll(0.5);  // FIXME
+    n |= p05;
+    x = ll2d(n);
+    if( x > SQRTH ) fe+=1.;
+    if( x < SQRTH )   x += x;
+    x =   x - 1.0;
+    
+    
+    /* logarithm using log(x) = z + z**3 P(z)/Q(z),
+     * where z = 2(x-1)/x+1)
+     */
+    // not worth
+    
+    /* logarithm using log(1+x) = x - .5x**2 + x**3 P(x)/Q(x) */
+    
+    
+    
+    /* rational form */
+    
+    z = x*x;
+    px =  1.01875663804580931796E-4;
+    px *= x;    
+    px += 4.97494994976747001425E-1;
+    px *= x;    
+    px += 4.70579119878881725854E0;
+    px *= x; 
+    px += 1.44989225341610930846E1;
+    px *= x; 
+    px += 1.79368678507819816313E1;
+    px *= x;
+    px += 7.70838733755885391666E0;
+    //
+    //for the final formula
+    px *= x; 
+    px *= z;
+    
+    
+    qx = x;
+    qx += 1.12873587189167450590E1;
+    qx *=x;
+    qx += 4.52279145837532221105E1;
+    qx *=x;    
+    qx += 8.29875266912776603211E1;
+    qx *=x;    
+    qx += 7.11544750618563894466E1;
+    qx *=x;    
+    qx += 2.31251620126765340583E1;
+    
+    
+    y = px / qx ;
+    
+    y -= fe * 2.121944400546905827679e-4; 
+    y -= 0.5 * z  ;
+    
+    z = x + y;
+    z += fe * 0.693359375;
+    
+    if (input_x > 5e307)
+      z = std::numeric_limits<double>::infinity();
+    if (input_x < 5e-307)
+      z =  - std::numeric_limits<double>::infinity();       
+    
+    
+    return z;  
+    
+  }
+  
+  
 }
 
 

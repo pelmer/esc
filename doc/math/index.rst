@@ -17,8 +17,8 @@ Or use the git area on the student server::
 
 Then proceed as shown on the slides::
 
-  which c++-470 
-  c++-470 -v 
+  which c++
+  c++ -v 
 
   cd exercises 
   make afloat 

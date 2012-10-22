@@ -3,7 +3,7 @@
 void i() {
   int w=0; int y=0;
   do { y = w++; } while (w>y);
-  std::cout << w << std::endl << std::endl;
+  std::cout << y << " " << w << std::endl << std::endl;
 }
 
 int main() {
