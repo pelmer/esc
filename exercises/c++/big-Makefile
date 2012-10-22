@@ -1,0 +1,16 @@
+CXXFLAGS=-O2 -std=c++11 -ggdb
+
+.PHONY: all clean
+
+all: clean big-main
+	LD_LIBRARY_PATH=.:${LD_LIBRARY_PATH} ./big-main
+
+big-main: big-main.cxx libbig.so
+	$(CXX) -o big-main big-main.cxx -L. -lbig $(CXXFLAGS)
+
+libbig.so: big.cxx
+	$(CXX) $(CXXFLAGS) -o libbig.so -fPIC -shared  big.cxx
+
+clean:
+	/bin/rm -f lib*.so
+	/bin/rm -f big-main

@@ -15,3 +15,6 @@ Browse `exercise material <../exercises/c++/>`_.
    inlining
    constructors
    metaprogram
+   cxx11-move-semantics
+   cxx11-devirtualize
+
