@@ -30,6 +30,11 @@ Steps
 
 6. Can you spot the differences ? Make sure you do understand them.
 
+7. Modify the struct to make it non-inheritable and remove the
+   ``FINAL`` specifier from the ``A::a`` method.
+   Recompile with and without ``-DWITH_FINAL=1`` and make sure the
+   de-virtualization works by inspecting the assembly.
+
 References
 ----------
 
