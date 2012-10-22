@@ -1,6 +1,6 @@
 #!/bin/sh -x
 
-git clone git://github.com/lat/esc.git
+git clone git://github.com/pelmer/esc.git
 svn -q co svn+ssh://svn.cern.ch/reps/CMSDMWM/Infrastructure/trunk/Deployment cfg
 rm -fr cfg/esc && ln -s ../esc/build cfg/esc
 
