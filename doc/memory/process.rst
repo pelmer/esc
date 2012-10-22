@@ -10,12 +10,17 @@ applications.
 Steps
 -----
 
-1. Open a terminal window.
+1. Open a terminal window. For the exercises on this page, we are using
+   tools from the operating system so it is not necessary to source any
+   extra environment script (although it should not hurt if you do).
 
 2. Execute the following command.  It tells you which shell you are executing
    in your terminal; it should print out /bin/bash::
 
        echo $SHELL
+
+   We will be using the /bin/bash binary as an example of an executable
+   in the following exercises.
 
 3. Execute the following command.  It tells how the shell executable is laid
    out for the operating system to load into memory.  Make note of the dynamic
