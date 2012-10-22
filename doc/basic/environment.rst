@@ -109,7 +109,7 @@ need to remember IP addresses.
 3. Get the school exercises material on your laptop::
 
      cd My/Dev/Area
-     git clone https://github.com/lat/esc.git
+     git clone https://github.com/pelmer/esc.git
 
      # If you get SSL error, 'export GIT_SSL_NO_VERIFY=true' first.
      # The local firewall prevents use of 'git:' url style on your laptop.
@@ -118,9 +118,9 @@ need to remember IP addresses.
 
      rsync -av esc/ esc-40:esc/
 
-   You can download a `zip file <https://github.com/lat/esc/zipball/master>`_
-   or `tar ball <https://github.com/lat/esc/tarball/master>`_ from the
-   `github web page <http://github.com/lat/esc>`_ if you don't have ``git``.
+   You can download a `zip file <https://github.com/pelmer/esc/zipball/master>`_
+   or `tar ball <https://github.com/pelmer/esc/tarball/master>`_ from the
+   `github web page <http://github.com/pelmer/esc>`_ if you don't have ``git``.
 
    You can now edit sources on your laptop, and run the command above to sync
    to the server. You can of course also run an editor on the server and sync
