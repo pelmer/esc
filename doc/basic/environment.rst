@@ -13,7 +13,6 @@ were assigned.
   * Your home directory is ``/home/<student>`` and is local to the server.
   * Your shell is `bash <http://www.gnu.org/s/bash/>`_
   * Your NFS area is in ``/storage/nfs_esc12/<student>``
-  * Your GPFS area is in ``/storage/gpfs_esc12/<student>``
 
 Below we use *<student>* as a general student account and 137.204.203.40 as the
 general host alias.  When executing the commands, replace these with the
@@ -66,7 +65,7 @@ need to remember IP addresses.
 
    * Generate a temporary SSH key and copy it to the right host::
 
-       ssh-keygen -t rsa -C esc12_temp_key -f ~/.ssh/id_rsa_esc11
+       ssh-keygen -t rsa -C esc12_temp_key -f ~/.ssh/id_rsa_esc12
        scp ~/.ssh/id_rsa_esc12.pub <student>@137.204.203.40:.ssh/authorized_keys
 
    * If not on OS X, start an ``ssh-agent``::
@@ -77,63 +76,34 @@ need to remember IP addresses.
 
        ssh-add ~/.ssh/id_rsa_esc12
 
-   * Add SSH configuration for your student host.  You can of course add
-     this chunk with your favourite editor if you prefer.
+   * If you want to avoid typing the full IP address to log on to the
+     machine provided by the school, you can add some SSH configuration for
+     your student host on your laptop.  You can of course add
+     this chunk with your favourite editor if you prefer. (Change "esc-40"
+     and the IP address to correspond to the machine you were assigned.)
 
      ::
 
        cat >> ~/.ssh/config << \EOF
-         Host esc-*
-           User stud01
+         Host esc-40
+           HostName 137.204.203.40
            PubkeyAuthentication yes
            IdentityFile ~/.ssh/id_rsa_esc12
-
-         Host esc-stud01
-           HostName 137.204.203.40
-         Host esc-stud02
-           HostName 137.204.203.41
-         Host esc-stud03
-           HostName 137.204.203.42
-         Host esc-stud04
-           HostName 137.204.203.43
-         Host esc-stud05
-           HostName 137.204.203.44
-         Host esc-stud06
-           HostName 137.204.203.45
-         Host esc-stud07
-           HostName 137.204.203.46
-         Host esc-stud08
-           HostName 137.204.203.47
-         Host esc-stud09
-           HostName 137.204.203.48
-         Host esc-stud10
-           HostName 137.204.203.49
-         Host esc-stud11
-           HostName 137.204.203.50
-         Host esc-stud12
-           HostName 137.204.203.51
-         Host esc-adm01
-           HostName 137.204.203.67
-         Host esc-adm02
-           HostName 137.204.203.68
-         Host esc-adm03
-           HostName 137.204.203.69
-         Host esc-adm04
-           HostName 137.204.203.70
        EOF
        chmod 600 ~/.ssh/config
 
    * Test you can ssh to your student account without password prompts::
 
-       ssh esc-stud01 uptime
+       ssh esc-40 uptime
 
-   * Test you can rsync to the student host::
+   * Test you can rsync to the student host (change "esc-40" below to your
+     assigned node!):
 
        mkdir /tmp/foo
        date > /tmp/foo/test.txt
-       rsync -av /tmp/foo/ esc-stud01:foo/
-       ssh esc-stud01 ls -laFR foo
-       ssh esc-stud01 rm -fr foo
+       rsync -av /tmp/foo/ esc-40:foo/
+       ssh esc-40 ls -laFR foo
+       ssh esc-40 rm -fr foo
        rm -fr /tmp/foo
 
 3. Get the school exercises material on your laptop::
@@ -146,7 +116,7 @@ need to remember IP addresses.
 
 4. Synchronise to your student server::
 
-     rsync -av esc/ esc-stud01:esc/
+     rsync -av esc/ esc-40:esc/
 
    You can download a `zip file <https://github.com/lat/esc/zipball/master>`_
    or `tar ball <https://github.com/lat/esc/tarball/master>`_ from the

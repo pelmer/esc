@@ -15,7 +15,7 @@ and analysis applications.
 
 1. Set up your environment::
 
-     . /storage/software/main/env-gcc451.sh
+     . /storage/software/env-gcc462.sh
 
 2. Go to the exercise directory::
 
