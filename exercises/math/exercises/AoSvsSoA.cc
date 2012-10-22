@@ -79,11 +79,11 @@ void msum(LorentzVector & res, Value s, LorentzVector const & v1, LorentzVector 
 
 struct Particle {
   Particle(){}
-  Particle(LorentzVector const & iv, LorentzVector const & ip) : v(iv),p(ip){}
+  Particle(LorentzVector const & iv, LorentzVector const & ip, float ic, float it) : v(iv),p(ip), charge(ic),type(it){}
   LorentzVector v;
   LorentzVector p;
   float charge;
-  int type;
+  float type;
 
 };
 
@@ -106,22 +106,43 @@ namespace aos {
 namespace aosP {
   Particle a[1024], b[1014], c[1024];
   void fill(Particle * v, float * f, int N) {
-    for (int i=0; i!=N;++i)
+    for (int i=0; i!=N;++i){
       v[i].p = LorentzVector(f[i],f[i+N],f[i+2*N],f[i+3*N]);
+      v[i].charge = (0==i%10) ? 1.f : 0.f;
+    }
   }
   Value s;
   Value m[1024];
   void lsum(bool p) {
     for (int i=0; i!=1024;++i)
-      a[i].p = ksum(s,b[i].p,c[i].p);
+       a[i].p = (0==a[i].charge) ?
+	 b[i].p : ksum(s,b[i].p,c[i].p);
     if (p) for (int i=0; i!=1024;++i)
-      m[i] =dot(a[i].p,b[i].p);
+	     m[i] =dot(a[i].p,b[i].p);
   }
 }
 
 
+
+//------------  SOA -----------
+
+template<typename SOA>
+struct Setter {
+  SOA & soa;
+  int i;
+  Setter( SOA const & isoa, int ii) : soa(const_cast<SOA&>(isoa)), i(ii){}
+
+  template<typename S>
+  void operator=(S const & s) {
+    soa.set(s,i);
+  }
+  template<typename S>
+  operator S() const { return soa.get(i);}
+};
+
 struct SoA4 {
   SoA4(Value * __restrict__ im=0, int in=0) : mem(im),n(in){}
+  typedef Setter<SoA4> Set;
   Value * __restrict__  mem;
   int n;
   Value x(int i) const  { return mem[i];} 
@@ -132,26 +153,59 @@ struct SoA4 {
   Value & y(int i) { return  mem[i+n];} 
   Value & z(int i) { return  mem[i+2*n];} 
   Value & t(int i) { return  mem[i+3*n];} 
+  /*
   LorentzVector operator[](int i) const {
     return LorentzVector(x(i),y(i),z(i),t(i));
   }
+  */
+  Set operator[](int i) {
+    return Set(*this,i);
+  }
+  Set operator[](int i) const {
+    return Set(*this,i);
+  }
+
+  LorentzVector get(int i) const {
+    return LorentzVector(x(i),y(i),z(i),t(i));
+  }
+
   void set(LorentzVector const & v, int i) {
     x(i)=v.theX;y(i)=v.theY;z(i)=v.theZ;t(i)=v.theT;
   }
 };
 
 struct Particles {
-  Particles(Value * __restrict__ im, int in) : v(im,in),p(im+4*sizeof(Value)+in,in){}
+  Particles(Value * __restrict__ im, int in) : v(im,in),p(im+4*in,in){}
+  typedef Setter<Particles> Set;
   SoA4 v;
   SoA4 p;
+  float charge(int i) const { return p.mem[i+4*p.n]; }
+  float type(int i) const { return p.mem[i+5*p.n]; }
+  float & charge(int i) { return p.mem[i+4*p.n]; }
+  float & type(int i)  { return p.mem[i+5*p.n]; }
+ 
+  int size() const { return v.n;}
+
+  /*
+  Set operator[](int i) {
+    return Set(*this,i);
+  }
+  */
   Particle operator[](int i) const {
-    return Particle(v[i],p[i]);
+    return Set(*this,i);
+  }
+
+  Particle get(int i) const {
+    return Particle(v[i],p[i],charge(i),type(i));
   }
   void set(Particle const & ip, int i) {
-    v.set(ip.v,i); p.set(ip.p,i);
+    v.set(ip.v,i); p.set(ip.p,i); charge(i)=ip.charge; type(i)=ip.type;
   }
   void setP(LorentzVector const & ip, int i) {
     p.set(ip,i);
+  }
+  LorentzVector getP(int i) const {
+    return p[i];
   }
 };
 
@@ -187,7 +241,7 @@ namespace soa4 {
     a.mem=m1; b.mem=m2;c.mem=m3;
     a.n=b.n=c.n=1024;
     for (int i=0; i!=1024;++i)
-      a.set(ksum(s,b[i],c[i]),i);
+      a[i] = ksum(s,b[i],c[i]);
     if (p) for (int i=0; i!=1024;++i)
       m[i] =dot(a[i],b[i]);
   }
@@ -203,10 +257,14 @@ namespace soaP {
   Value m[1024];
   void soAsum(bool p) {
     //a.mem=arena; b.mem=arena+4*1024;c.mem=b.mem+4*1024;
-    for (int i=0; i!=1024;++i)
-      a.setP(ksum(s,b[i].p,c[i].p),i);
+    for (int i=0; i!=1024;++i) {
+      LorentzVector v  =  b[i].p;
+      if (0!=a.charge(i)) 
+	v= ksum(s,b[i].p,c[i].p);
+      a.setP(v,i);
+    }
     if (p) for (int i=0; i!=1024;++i)
-      m[i] =dot(a[i].p,b[i].p);
+	     m[i] =dot(a[i].p,b[i].p);
   }
 }
 
