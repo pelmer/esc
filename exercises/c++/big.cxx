@@ -38,11 +38,12 @@ Big::operator=(const Big& rhs)
 Big
 operator+(const Big&a, const Big&b)
 {
-  std::cout << "operator+\n";
+  std::cout << "operator+(a, b)\n";
+  Big sum(a);
   for (int i = 0; i < NMAX; i++) {
-    a.m_data[i] += b.m_data[i];
+    sum.m_data[i] += b.m_data[i];
   }
-  return a;
+  return sum;
 }
 
 Big

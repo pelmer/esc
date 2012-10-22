@@ -23,7 +23,6 @@ Steps
 4. Compile and run ``big-main`` ::
 
      $ make -f big-Makefile
-     $ ./big-main
 
 5. Note the number of ``Big`` instances being created and copied.
    You can also look at the assembly like so::
