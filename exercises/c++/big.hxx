@@ -12,8 +12,8 @@ public:
 
   Big(const Big&);
   Big &operator=(const Big&);
-  Big(Big &&);
-  Big &operator=(Big &&);
+  //Big(Big &&);              // <<<< implement this
+  //Big &operator=(Big &&);   // <<<< implement that
 };
 
 Big operator+(const Big&, const Big&);

@@ -35,24 +35,6 @@ Big::operator=(const Big& rhs)
   return *this;
 }
 
-Big::Big(Big &&rhs)
-{
-  std::cout << "Big::Big(Big&&)\n";
-  m_data = rhs.m_data;
-  rhs.m_data = nullptr;
-}
-
-Big&
-Big::operator=(Big &&rhs)
-{
-  std::cout << "Big::operator=(Big&&)\n";
-  if (&rhs != this) {
-    m_data = std::move(rhs.m_data);
-    rhs.m_data=nullptr;
-  }
-  return *this;
-}
-
 Big
 operator+(const Big&a, const Big&b)
 {
@@ -68,12 +50,3 @@ munge(const Big &a)
 {
   return a;
 }
-
-#if 0
-Big
-makeBig()
-{
-  return Big();
-}
-#endif
-

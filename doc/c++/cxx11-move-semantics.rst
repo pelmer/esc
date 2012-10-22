@@ -18,31 +18,23 @@ Steps
 3. Review exercise code, making sure you understand everything that is being done:
     * `big.hxx <../exercises/c++/big.hxx>`_
     * `big.cxx <../exercises/c++/big.cxx>`_
-    * `main-big.cxx <../exercises/c++/main-big.cxx>`_
+    * `big-main.cxx <../exercises/c++/big-main.cxx>`_
 
-4. Compile with and without the "DIFFERENT" macro defined and compile with
-   different optimization levels from -O0 to -O3, and "DIFFERENT" also with
-   the linker folding identical code::
+4. Compile and run ``big-main`` ::
 
-     for opt in O{0,1,2,3}; do
-       c++ -o templates-$opt-diff-icf -DDIFFERENT -Wl,--icf=safe -$opt -W -Wall templates.cxx
-       c++ -o templates-$opt-diff -DDIFFERENT -$opt -W -Wall templates.cxx
-       c++ -o templates-$opt-same -$opt -W -Wall templates.cxx
-     done
+     $ make -f big-Makefile
+     $ ./big-main
 
-5. Compare the size of the results
+5. Note the number of ``Big`` instances being created and copied.
+   You can also look at the assembly like so::
 
-6. Compare with the -save-temps switch -- which stores the usual "temporary"
-   intermedate files permanently -- the largest and the leanest programs from
-   above
+     $ objdump -S -r ./big-main | c++filt | less
 
-7. Look at the assembly code and try to figure out if everything makes sense
+6. Now, implement the move operations (i.e. the move constructor and
+   the move assignmenent operator)
 
-8. Copy the templates.cxx file to explicit-templates-inst.cxx and edit the new
-   file to use explicit template instantiation
-
-9. Compare the code size resulting from compilation of each of templates.cxx
-   and explicit-templates-inst.cxx 
+7. Compile and run ``big-main``, compare with the number of ``Big``
+   instances being created "from scratch".
 
 References
 ----------
@@ -66,3 +58,7 @@ References
   Basic Architecture <http://www.intel.com/Assets/PDF/manual/253665.pdf>`_
   (Don't imagine reading this cover to cover, but a good reference to search
   for particular assembly instructions.)
+
+* `C++11 move constructor <http://en.cppreference.com/w/cpp/language/move_constructor>`_
+
+* `C++11 move operator <http://en.cppreference.com/w/cpp/language/move_operator>`_
