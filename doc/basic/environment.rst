@@ -5,17 +5,19 @@ The goal of this step is to prepare your working environment for the ESC
 exercises.  At the end of this step you should have a reasonably workable
 environment for running the other exercises.
 
-You will work using *studNN* account created for you.
-  * You were assigned host 137.204.203.40 -- .51 to work on. Two students
-    share each server.
-  * Your home directory is ``/home/studNN`` and is local to the server.
+You will work using the account created for you. In what follows we will
+write "<student>" to indicate where you should substitute the username you
+were assigned.
+  * You were assigned a host between 137.204.203.40 -- .47 to work on. Two 
+    students share each server.
+  * Your home directory is ``/home/<student>`` and is local to the server.
   * Your shell is `bash <http://www.gnu.org/s/bash/>`_
-  * Your NFS area is in ``/storage/nfs_esc11/studNN``
-  * Your GPFS area is in ``/storage/gpfs_esc11/studNN``
+  * Your NFS area is in ``/storage/nfs_esc12/<student>``
+  * Your GPFS area is in ``/storage/gpfs_esc12/<student>``
 
-Below we use *stud01* as a general student account and 137.204.203.40 as the
+Below we use *<student>* as a general student account and 137.204.203.40 as the
 general host alias.  When executing the commands, replace these with the
-account number or host assigned to you.  **IMPORTANT NOTE:** *The student
+account name or host assigned to you.  **IMPORTANT NOTE:** *The student
 computers will be uninstalled on Friday evening and all data on them will be
 destroyed. Please make sure you make a copy of everything valuable by the
 end of the Friday session!*
@@ -31,7 +33,7 @@ working somewhat nicer and easier.
 
 1. SSH into your assigned host::
 
-     ssh stud01@137.204.203.40
+     ssh <student>@137.204.203.40
      echo $HOME $SHELL
      ls -laF
 
@@ -51,7 +53,7 @@ need to remember IP addresses.
 
 1. SSH into your assigned host::
 
-     ssh stud01@137.204.203.40
+     ssh <student>@137.204.203.40
      echo $HOME $SHELL
      mkdir -p .ssh
      chmod 755 .ssh
@@ -65,7 +67,7 @@ need to remember IP addresses.
    * Generate a temporary SSH key and copy it to the right host::
 
        ssh-keygen -t rsa -C esc12_temp_key -f ~/.ssh/id_rsa_esc11
-       scp ~/.ssh/id_rsa_esc12.pub stud01@137.204.203.40:.ssh/authorized_keys
+       scp ~/.ssh/id_rsa_esc12.pub <student>@137.204.203.40:.ssh/authorized_keys
 
    * If not on OS X, start an ``ssh-agent``::
 
@@ -161,25 +163,25 @@ Finishing off
 1. Open one or more terminal windows and ssh into the student server, and
    in each of them run the following environment setup::
 
-     . /storage/software/main/env-gcc461.sh
+     . /storage/software/env-gcc472.sh
 
 2. Check the following are working ok::
 
-     c++ -v 2>&1 | grep version  # should say 'gcc version 4.6.1 (GCC)'
-     valgrind --version          # should say 'valgrind-3.6.1'
+     c++ -v 2>&1 | grep version  # should say 'gcc version 4.7.2 (GCC)'
+     valgrind --version          # should say 'valgrind-3.8.0'
      igprof -h                   # should print simple help message
      which igprof-navigator      # should say full path
 
 3. Create a web area where you will put output from some exercises::
 
-     mkdir -p /storage/nfs_esc11/stud01/public_html/cgi-bin/data
-     ln -s /storage/nfs_esc11/stud01/public_html ~/public_html
+     mkdir -p /storage/nfs_esc12/<student>/public_html/cgi-bin/data
+     ln -s /storage/nfs_esc12/<student>/public_html ~/public_html
      cp $(which igprof-navigator) ~/public_html/cgi-bin/igprof-navigator.py
      echo "<html><body><a href='cgi-bin/igprof-navigator.py'>My" \
        "igprof reports</a></body></html>" > ~/public_html/index.html
      chmod 755 ~/public_html/cgi-bin
 
-4. View http://137.204.203.67/~stud01/ in your web browser, you should see
+4. View http://137.204.203.61/~<student>/ in your web browser, you should see
    the basic page you created above. Click on the link to profiles, it should
    produce some output -- for now it will in fact display an error message
    due to lack of profiles.
@@ -191,8 +193,8 @@ Finishing off
 
 In subsequent exercises, you should have one more terminal windows open with
 ssh session to the student server, and source the environment setup script as
-shown below.  You will normally use ``env-gcc461.sh``, but in some cases you
-will also use ``env-gcc451.sh``. **Always start each new exercise in a fresh
+shown below.  You will normally use ``env-gcc472.sh``, but in some cases you
+will also use ``env-gcc462.sh``. **Always start each new exercise in a fresh
 new shell environment!**
 
 If you are adventurous, you can build igprof standalone yourself following
