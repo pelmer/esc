@@ -22,7 +22,7 @@ Steps
 
 4. Build the ``gdb-ex-1.cc`` to get all debugging information in ``gdb``::
 
-     c++ -ggdb -O2 -W -Wall gdb-ex-1.cc -o gdb-ex-1
+     c++ -ggdb -O1 -W -Wall gdb-ex-1.cc -o gdb-ex-1
 
 5. Run the code under ``gdb``, insert a break point at ``main`` and
    inspect its assembly::

@@ -6,7 +6,7 @@ int f( int x ) { return x*x; }
 
 int main(int, char **) 
 {
-  int y, x = 5, z = 6; 
+  int y = 4, x = 5, z = 6; 
   printf("y= %d\n", y);
   y = f(x); 
   printf("y= %d\n", y);

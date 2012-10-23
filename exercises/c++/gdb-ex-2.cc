@@ -28,13 +28,13 @@ main(int, char **)
   B b;
 
   std::cout << "size of a: " << sizeof(a)
-	    << " offset of ad: " << offsetof(A, ad)
-	    << std::endl;
+			<< " offset of ad: " << offsetof(A, ad)
+			<< std::endl;
 
   std::cout << "size of b: " << sizeof(b)
-	    << " offset of ad: " << offsetof(B, ad)
-	    << " offset of bd: " << offsetof(B, bd)
-	    << std::endl;
+			<< " offset of ad: " << offsetof(B, ad)
+			<< " offset of bd: " << offsetof(B, bd)
+			<< std::endl;
 
   f(&a);
   f(&b);

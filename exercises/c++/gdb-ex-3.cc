@@ -5,7 +5,7 @@ class A
 {
 public:
   virtual void m1() { std::cout << "A::m1()" << std::endl; }
-  virtual void m2() { std::cout << "A::m1()" << std::endl; }
+  virtual void m2() { std::cout << "A::m2()" << std::endl; }
   int ad;
 };
 
@@ -47,13 +47,13 @@ int main(int, char **)
   B b2;
 
   std::cout << "size of a: " << sizeof(a)
-	    << " offset of ad: " << offsetof(A, ad)
-	    << std::endl;
+	//<< " offset of ad: " << offsetof(A, ad)
+			<< std::endl;
 
   std::cout << "size of b: " << sizeof(b1)
-	    << " offset of ad: " << offsetof(B, ad)
-	    << " offset of bd: " << offsetof(B, bd)
-	    << std::endl;
+	//<< " offset of ad: " << offsetof(B, ad)
+	//<< " offset of bd: " << offsetof(B, bd)
+			<< std::endl;
 
 
   std::cout << "a:  " << std::endl; print_vtable(&a);
