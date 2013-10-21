@@ -8,7 +8,7 @@ environment for running the other exercises.
 You will work using the account created for you. In what follows we will
 write "<student>" to indicate where you should substitute the username you
 were assigned.
-  * You were assigned a host between esc-server-01 and -17 to work on. Two 
+  * You were assigned a host between esc-vm-01 and -52 to work on. Two 
     students share each server.
   * Your home directory is ``/storage/nfs_esc13/<student>`` and is local 
     to the server, where "<student>" is your assigned login name
@@ -31,6 +31,11 @@ with SSH and would rather you use the editor on your local system, the more
 advanced steps below give an alternate extended configuration which makes
 working somewhat nicer and easier.
 
+0. Make sure you are using the INFN-Web WiFi network and not the CEUB
+   WiFi network. Only the INFN-Web one will work for the following. If
+   you do not have a user/pass to connecto the the INFN-Web network,
+   ask one of the organizers.
+
 1. First SSH into the gateway NSF server:
      ssh <student>@131.154.193.30
 
@@ -44,7 +49,7 @@ working somewhat nicer and easier.
 
 3. Then from there SSH into your assigned host::
 
-     ssh <student>@esc-server-<nn>
+     ssh <student>@esc-vm-<nn>
      echo $HOME $SHELL
      ls -laF
 
@@ -60,7 +65,7 @@ need to remember IP addresses.
 
 1. SSH into your assigned host::
 
-     ssh <student>@esc-server-<nn>
+     ssh <student>@esc-vm-<nn>
      echo $HOME $SHELL
      mkdir -p .ssh
      chmod 755 .ssh
@@ -85,13 +90,13 @@ need to remember IP addresses.
        ssh-add ~/.ssh/id_rsa_esc13
 
    * Test you can rsync to the student host (change "esc-40" below to your
-     assigned node!):
+     assigned node!)::
 
        mkdir /tmp/foo
        date > /tmp/foo/test.txt
        rsync -av /tmp/foo/ 131.154.193.30:foo/
-       ssh 131.154.193.30 ls -laFR foo
-       ssh 131.154.193.30 rm -fr foo
+       ssh <student>@131.154.193.30 ls -laFR foo
+       ssh <student>@131.154.193.30 rm -fr foo
        rm -fr /tmp/foo
 
 3. Get the school exercises material on your laptop::

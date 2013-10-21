@@ -63,7 +63,7 @@ using igprof statistical performance profiler.
      <... and so on ...>
 
 4. Generate the same profile in web-viewable database, view the profile at
-   http://137.204.203.61/~<student>/cgi-bin/igprof-navigator.py/cputicks/ ::
+   http://131.154.193.30/~<student>/cgi-bin/igprof-navigator.py/cputicks/ ::
 
      rm -f ~/public_html/cgi-bin/data/cputicks.sql3
      igprof-analyse --sqlite -d -v -g cputicks.gz |
