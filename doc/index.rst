@@ -1,6 +1,6 @@
-.. http://web.infn.it/esc12/images/template/esc12/header2012red1.jpg
-.. image:: header2012red1.jpg
-   :alt: Fourth INFN international school on architectures, tools and
+.. https://web2.infn.it/esc13/images/headerJ2013f.png
+.. image:: headerJ2013f.png
+   :alt: Fifth INFN international school on architectures, tools and
          methodologies for developing efficient large scale scientific
          computing applications
    :align: center
@@ -8,7 +8,7 @@
    :height: 260
    :scale: 66
 
-ESC12 Exercises
+ESC13 Exercises
 ===============
 
 Browse `exercise material <exercises/>`_.
@@ -18,8 +18,8 @@ Browse `exercise material <exercises/>`_.
    :maxdepth: 2
 
    basic/index
-   math/index
-   c++/index
-   memory/index
-   openmp/index
-   io/index
+..   math/index
+..   c++/index
+..   memory/index
+..   openmp/index
+..   io/index

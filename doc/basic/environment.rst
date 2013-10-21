@@ -8,13 +8,14 @@ environment for running the other exercises.
 You will work using the account created for you. In what follows we will
 write "<student>" to indicate where you should substitute the username you
 were assigned.
-  * You were assigned a host between 137.204.203.40 -- .47 to work on. Two 
+  * You were assigned a host between esc-server-01 and -17 to work on. Two 
     students share each server.
-  * Your home directory is ``/home/<student>`` and is local to the server.
+  * Your home directory is ``/storage/nfs_esc13/<student>`` and is local 
+    to the server, where "<student>" is your assigned login name
   * Your shell is `bash <http://www.gnu.org/s/bash/>`_
-  * Your NFS area is in ``/storage/nfs_esc12/<student>``
+  * Your NFS area is in ``/storage/nfs_esc13/<student>``
 
-Below we use *<student>* as a general student account and 137.204.203.40 as the
+Below we use *<student>* as a general student account "esc-server-<nn>" as the
 general host alias.  When executing the commands, replace these with the
 account name or host assigned to you.  **IMPORTANT NOTE:** *The student
 computers will be uninstalled on Friday evening and all data on them will be
@@ -30,15 +31,22 @@ with SSH and would rather you use the editor on your local system, the more
 advanced steps below give an alternate extended configuration which makes
 working somewhat nicer and easier.
 
-1. SSH into your assigned host::
+1. First SSH into the gateway NSF server:
+     ssh <student>@131.154.193.30
 
-     ssh <student>@137.204.203.40
-     echo $HOME $SHELL
-     ls -laF
-
-2. Get the school exercises material::
+2. You can only connect out to github from this gateway server, but it
+   has the same home area. Get the school exercises material::
 
      git clone git://github.com/pelmer/esc.git
+
+   (If you need to update this during the school, you will have to do it
+    from this gateway server, not the assigned host.)
+
+3. Then from there SSH into your assigned host::
+
+     ssh <student>@esc-server-<nn>
+     echo $HOME $SHELL
+     ls -laF
 
 Advanced configuration
 ----------------------
@@ -52,7 +60,7 @@ need to remember IP addresses.
 
 1. SSH into your assigned host::
 
-     ssh <student>@137.204.203.40
+     ssh <student>@esc-server-<nn>
      echo $HOME $SHELL
      mkdir -p .ssh
      chmod 755 .ssh
@@ -65,8 +73,8 @@ need to remember IP addresses.
 
    * Generate a temporary SSH key and copy it to the right host::
 
-       ssh-keygen -t rsa -C esc12_temp_key -f ~/.ssh/id_rsa_esc12
-       scp ~/.ssh/id_rsa_esc12.pub <student>@137.204.203.40:.ssh/authorized_keys
+       ssh-keygen -t rsa -C esc13_temp_key -f ~/.ssh/id_rsa_esc13
+       scp ~/.ssh/id_rsa_esc13.pub <student>@131.154.193.30:.ssh/authorized_keys
 
    * If not on OS X, start an ``ssh-agent``::
 
@@ -74,36 +82,16 @@ need to remember IP addresses.
 
    * Add the just-generated key to your ``ssh-agent``::
 
-       ssh-add ~/.ssh/id_rsa_esc12
-
-   * If you want to avoid typing the full IP address to log on to the
-     machine provided by the school, you can add some SSH configuration for
-     your student host on your laptop.  You can of course add
-     this chunk with your favourite editor if you prefer. (Change "esc-40"
-     and the IP address to correspond to the machine you were assigned.)
-
-     ::
-
-       cat >> ~/.ssh/config << \EOF
-         Host esc-40
-           HostName 137.204.203.40
-           PubkeyAuthentication yes
-           IdentityFile ~/.ssh/id_rsa_esc12
-       EOF
-       chmod 600 ~/.ssh/config
-
-   * Test you can ssh to your student account without password prompts::
-
-       ssh esc-40 uptime
+       ssh-add ~/.ssh/id_rsa_esc13
 
    * Test you can rsync to the student host (change "esc-40" below to your
      assigned node!):
 
        mkdir /tmp/foo
        date > /tmp/foo/test.txt
-       rsync -av /tmp/foo/ esc-40:foo/
-       ssh esc-40 ls -laFR foo
-       ssh esc-40 rm -fr foo
+       rsync -av /tmp/foo/ 131.154.193.30:foo/
+       ssh 131.154.193.30 ls -laFR foo
+       ssh 131.154.193.30 rm -fr foo
        rm -fr /tmp/foo
 
 3. Get the school exercises material on your laptop::
@@ -116,7 +104,7 @@ need to remember IP addresses.
 
 4. Synchronise to your student server::
 
-     rsync -av esc/ esc-40:esc/
+     rsync -av esc/ 131.154.193.30:esc/
 
    You can download a `zip file <https://github.com/pelmer/esc/zipball/master>`_
    or `tar ball <https://github.com/pelmer/esc/tarball/master>`_ from the

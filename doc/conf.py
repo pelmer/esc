@@ -27,7 +27,7 @@ autoclass_content = 'both'
 html_theme = 'nature'
 #html_theme_options = {}
 #html_theme_path = []
-html_title = "ESC12 exercises"
+html_title = "ESC13 exercises"
 #html_short_title = None
 #html_logo = None
 #html_favicon = None
@@ -48,7 +48,7 @@ latex_paper_size = 'a4'
 #latex_font_size = '10pt'
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'ESC.tex', u'ESC12 Exercises',
+  ('index', 'ESC.tex', u'ESC13 Exercises',
    u'Lassi Tuura', 'manual'),
 ]
 
