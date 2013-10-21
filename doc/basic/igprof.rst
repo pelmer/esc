@@ -18,7 +18,7 @@ sure you can create a dummy profile for simply running ``ls``.
      c++ -v 2>&1 | grep version  # should say 'gcc version 4.8.2 (GCC)'
      igprof -h                   # should print simple help message
 
-2. (SKIP FOR NOW) Create your very first igprof report on ``ls``::
+2. Create your very first igprof report on ``ls``::
 
      igprof -pp -z -o ls-test.gz -- ls -laFR /usr/lib >/dev/null
      igprof-analyse --sqlite -d -v -g ls-test.gz |

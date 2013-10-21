@@ -134,7 +134,7 @@ Finishing off
      igprof -h                   # should print simple help message
      which igprof-navigator      # should say full path
 
-3. (SKIP FOR NOW) Create a web area where you will put output from some exercises::
+3. Create a web area where you will put output from some exercises::
 
      mkdir -p /storage/nfs_esc13/<student>/public_html/cgi-bin/data
      cp $(which igprof-navigator) ~/public_html/cgi-bin/igprof-navigator.py
@@ -142,7 +142,7 @@ Finishing off
        "igprof reports</a></body></html>" > ~/public_html/index.html
      chmod 755 ~/public_html/cgi-bin
 
-4. (SKIP FOR NOW) View http://131.154.193.30/~<student>/ in your web browser, you should see
+4. View http://131.154.193.30/~<student>/ in your web browser, you should see
    the basic page you created above. Click on the link to profiles, it should
    produce some output -- for now it will in fact display an error message
    due to lack of profiles.
