@@ -13,17 +13,18 @@ Basic profiling environment
 To make sure you have technically everything set up right, let's first make
 sure you can create a dummy profile for simply running ``ls``.
 
-1. Set up your environment::
+1. Make sure your environment is correct::
 
-     . /storage/software/env-gcc472.sh
+     c++ -v 2>&1 | grep version  # should say 'gcc version 4.8.2 (GCC)'
+     igprof -h                   # should print simple help message
 
-2. Create your very first igprof report on ``ls``::
+2. (SKIP FOR NOW) Create your very first igprof report on ``ls``::
 
      igprof -pp -z -o ls-test.gz -- ls -laFR /usr/lib >/dev/null
      igprof-analyse --sqlite -d -v -g ls-test.gz |
        sqlite3 ~/public_html/cgi-bin/data/ls-test.sql3
 
-3. View the report at http://137.204.203.61/~<student>/cgi-bin/igprof-navigator.py/ls-test/
+3. View the report at http://131.154.193.30/~<student>/cgi-bin/igprof-navigator.py/ls-test/
 
 Basic performance profile
 -------------------------
@@ -31,9 +32,10 @@ Basic performance profile
 This exercise will run the program from the :doc:`previous exercise <cputicks>`
 using igprof statistical performance profiler.
 
-1. Set up your environment::
+1. Make sure your environment is correct::
 
-     . /storage/software/env-gcc472.sh
+     c++ -v 2>&1 | grep version  # should say 'gcc version 4.8.2 (GCC)'
+     igprof -h                   # should print simple help message
 
 2. Run the test program under igprof performance profiler::
 

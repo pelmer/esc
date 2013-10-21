@@ -121,25 +121,28 @@ Finishing off
 1. Open one or more terminal windows and ssh into the student server, and
    in each of them run the following environment setup::
 
-     . /storage/software/env-gcc472.sh
+     alias c++=c++-482
+     alias g++=g++-482
+     alias gcc=gcc-482
+     export PATH=/export/software/elmer/igprof/bin:/export/software/elmer/valgrind/bin:$PATH
+     export LD_LIBRARY_PATH=/export/software/elmer/igprof/lib:/export/software/elmer/valgrind/lib
 
 2. Check the following are working ok::
 
-     c++ -v 2>&1 | grep version  # should say 'gcc version 4.7.2 (GCC)'
-     valgrind --version          # should say 'valgrind-3.8.0'
+     c++ -v 2>&1 | grep version  # should say 'gcc version 4.8.2 (GCC)'
+     valgrind --version          # should say 'valgrind-3.8.1'
      igprof -h                   # should print simple help message
      which igprof-navigator      # should say full path
 
-3. Create a web area where you will put output from some exercises::
+3. (SKIP FOR NOW) Create a web area where you will put output from some exercises::
 
-     mkdir -p /storage/nfs_esc12/<student>/public_html/cgi-bin/data
-     ln -s /storage/nfs_esc12/<student>/public_html ~/public_html
+     mkdir -p /storage/nfs_esc13/<student>/public_html/cgi-bin/data
      cp $(which igprof-navigator) ~/public_html/cgi-bin/igprof-navigator.py
      echo "<html><body><a href='cgi-bin/igprof-navigator.py'>My" \
        "igprof reports</a></body></html>" > ~/public_html/index.html
      chmod 755 ~/public_html/cgi-bin
 
-4. View http://137.204.203.61/~<student>/ in your web browser, you should see
+4. (SKIP FOR NOW) View http://131.154.193.30/~<student>/ in your web browser, you should see
    the basic page you created above. Click on the link to profiles, it should
    produce some output -- for now it will in fact display an error message
    due to lack of profiles.
@@ -151,9 +154,8 @@ Finishing off
 
 In subsequent exercises, you should have one more terminal windows open with
 ssh session to the student server, and source the environment setup script as
-shown below.  You will normally use ``env-gcc472.sh``, but in some cases you
-will also use ``env-gcc462.sh``. **Always start each new exercise in a fresh
-new shell environment!**
+shown below. **Always start each new exercise in a fresh new shell 
+environment!**
 
 If you are adventurous, you can build igprof standalone yourself following
 the `recipe on the web site <http://igprof.sourceforge.net/install.html>`_.
