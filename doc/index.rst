@@ -19,7 +19,7 @@ Browse `exercise material <exercises/>`_.
 
    basic/index
    math/index
-..   c++/index
+   cpp/index
 ..   memory/index
 ..   openmp/index
 ..   io/index
