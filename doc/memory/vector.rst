@@ -3,14 +3,15 @@ Vector memory use
 
 The goal of this exercise is to understand the memory use and performance of
 `std::vector <http://www.cplusplus.com/reference/stl/vector/>`_. You will get
-familiar with the `IgProf <http://igprof.sourceforge.net>`_ profiler tool.
+familiar with the `IgProf <http://igprof.org>`_ profiler tool.
 
 Steps
 -----
 
-1. Set up your environment::
+1. Make sure your environment is correct::
 
-     . /storage/software/env-gcc472.sh
+     c++ -v 2>&1 | grep version  # should say 'gcc version 4.8.2 (GCC)'
+     igprof -h                   # should print simple help message
 
 2. Go to the exercise directory::
 
@@ -50,5 +51,8 @@ Steps
          sqlite3 ~/public_html/cgi-bin/data/${f}_live_peak.sql3
      done
 
-7. This results in profiles such as
-   http://137.204.203.67/~stud01/cgi-bin/igprof-navigator.py/vvvi-copy.gz_tot/o_tot/
+7. This results in profiles such as::
+
+   http://131.154.193.30/~<student>/cgi-bin/igprof-navigator.py/vvvi-copy.gz_tot/o_tot/
+
+

@@ -7,9 +7,10 @@ The goal of this exercise is to locate some common memory errors using
 Steps
 -----
 
-1. Set up your environment::
+1. Make sure your environment is correct::
 
-     . /storage/software/env-gcc472.sh
+     c++ -v 2>&1 | grep version  # should say 'gcc version 4.8.2 (GCC)'
+     valgrind --version          # should say 'valgrind-3.8.1'
 
 2. Go to the exercise directory::
 
