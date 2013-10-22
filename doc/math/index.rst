@@ -1,26 +1,28 @@
 Floating point computation: accuracy, optimization, vectorization
 =================================================================
 
-Browse `exercise material <../exercises/math/>`_.  The exercises are included in the
-`slides <http://agenda.infn.it/getFile.py/access?contribId=5&sessionId=0&resId=0&materialId=slides&confId=3839>`_.
+The exercises are included in the
+`slides <https://agenda.infn.it/getFile.py/access?contribId=5&sessionId=0&resId=0&materialId=slides&confId=6686>`_.
 
-For environment setup, you can either do as shown on slides::
+The exercises for this section are in a separate git respository::
 
-  tar -zxf /storage/software/innocente/FPOptimization2011.tgz
-  cd FPOptimization2011
-  source setup.sh
-
-Or use the git area on the student server::
-
-  cd esc/exercises/math
-  . ./setup.sh
+     git clone https://github.com/VinInn/FPOptimization.git
+     cd FPOptimization/exercises
 
 Then proceed as shown on the slides::
 
-  which c++
-  c++ -v 
+     which c++-482
+     c++-482 -v
+     cd FPOptimization/exercises make afloat
+     ./afloat_O2
+     ./afloat_fast
 
-  cd exercises 
-  make afloat 
-  ./afloat_O2 
-  ./afloat_fast
+You should also try::
+
+     ldd ./afloat_O2
+
+and check that you see::
+ 
+     libstdc++.so.6 => /opt/gcc482/lib64/libstdc++.so.6
+
+

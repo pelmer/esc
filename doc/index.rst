@@ -18,7 +18,7 @@ Browse `exercise material <exercises/>`_.
    :maxdepth: 2
 
    basic/index
-..   math/index
+   math/index
 ..   c++/index
 ..   memory/index
 ..   openmp/index
