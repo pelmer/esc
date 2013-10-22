@@ -21,5 +21,5 @@ Browse `exercise material <exercises/>`_.
    math/index
    cpp/index
    memory/index
-..   openmp/index
+   parallel/index
 ..   io/index
