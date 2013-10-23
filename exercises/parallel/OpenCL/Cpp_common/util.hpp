@@ -212,4 +212,11 @@ public:
 
 } // namespace util
 
+#if __cplusplus <= 199711L
+
+template<class V> typename V::iterator  begin(V & b){ return b.begin();}
+template<class V> typename V::iterator  end(V & b) {return b.end();}
+
+#endif
+
 #endif // __UTIL_HDR

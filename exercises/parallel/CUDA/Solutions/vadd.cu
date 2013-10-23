@@ -10,12 +10,11 @@
 //                  Ported to C++ Wrapper API by Benedict Gaster, September 2011
 //                  Updated to C++ Wrapper API v1.2 by Tom Deakin and Simon McIntosh-Smith, October 2012
 //                  Updated to C++ Wrapper v1.2.6 by Tom Deakin, August 2013
-//                  Ported to CUDA by Francesco Rossi, Oct 2013
+//                  Ported to CUDA by F Rossi, Oct 2013
 //------------------------------------------------------------------------------
 
 #define __CL_ENABLE_EXCEPTIONS
 
-#include "util.hpp" // utility library
 
 #include <vector>
 #include <cstdio>

@@ -16,7 +16,7 @@ MMULOBJS = matmul.$(OBJ) matrix_lib.$(OBJ)
 
 COMM_OBJS = $(COMMON)/wtime.$(OBJ) 
 
-HEADERS_DEPS   = cuda_util.hpp	matmul.hpp	matrix_lib.hpp ./Cpp_common/cl.hpp ./Cpp_common/util.hpp
+HEADERS_DEPS   = cuda_util.hpp	matmul.hpp	matrix_lib.hpp 
 
 all: $(EXES)
 

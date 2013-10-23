@@ -3,8 +3,7 @@
 CC          = nvcc
 CLINKER = $(CC)
 
-OPENCLFLAGS = -framework OpenCL
-CLINKER = g++-mp-4.8 $(OPENCLFLAGS) -lcudart -L/usr/local/cuda/lib
+CLINKER = g++ -lcudart -L/usr/local/cuda/lib64
 
 CFLAGS  = -O3 -I$(COMMON)
 CPPFLAGS = $(CFLAGS)
