@@ -28,8 +28,10 @@ int main(void)
 
     // Investigate each platform
     std::cout << "\n-------------------------" << std::endl;
-    for (cl::Platform& plat : platforms)
+    for (int i=0; i<platforms.size(); i++) //cl::Platform& plat : platforms)
     {
+      cl::Platform& plat = platforms[i];      
+
       std::string s;
       plat.getInfo(CL_PLATFORM_NAME, &s);
       std::cout << "Platform: " << s << std::endl;
@@ -46,8 +48,9 @@ int main(void)
       std::cout << "\n\tNumber of devices: " << devices.size() << std::endl;
 
       // Investigate each device
-      for (cl::Device& dev : devices)
+      for (int j=0; j<devices.size(); j++)//cl::Device& dev : devices)
       {
+        cl::Device& dev = devices[j];
         std::cout << "\t-------------------------" << std::endl;
 
         dev.getInfo(CL_DEVICE_NAME, &s);
@@ -76,8 +79,8 @@ int main(void)
         std::vector<size_t> d;
         dev.getInfo(CL_DEVICE_MAX_WORK_ITEM_SIZES, &d);
         std::cout << "\t\tMax Work-item Dims: (";
-        for (size_t& st : d)
-          std::cout << st << " ";
+        for (int k=0; k<d.size(); k++)
+          std::cout << d[k] << " ";
         std::cout << "\x08)" << std::endl;
 
         std::cout << "\t-------------------------" << std::endl;

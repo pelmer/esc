@@ -21,7 +21,7 @@
 //------------------------------------------------------------------------------
 //  functions from ../Common
 //------------------------------------------------------------------------------
-extern double wtime();   // returns time since some fixed past point (wtime.c)
+extern "C" double wtime();   // returns time since some fixed past point (wtime.c)
 
 //------------------------------------------------------------------------------
 //  Constants

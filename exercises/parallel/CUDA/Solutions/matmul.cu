@@ -17,7 +17,7 @@
 //           Modified by Simon McIntosh-Smith, September 2011
 //           Modified by Tom Deakin and Simon McIntosh-Smith, October 2012
 //             Updated to C++ Wrapper v1.2.6 by Tom Deakin, August 2013
-//           Ported to CUDA by F.Rossi, Oct 2013
+//           Ported to CUDA by F Rossi, Oct 2013
 //------------------------------------------------------------------------------
 
 #include "matmul.hpp"

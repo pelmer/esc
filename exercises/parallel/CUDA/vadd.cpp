@@ -22,7 +22,7 @@
 
 #define TOL    (0.001)   // tolerance used in floating point comparisons
 #define LENGTH (1024)    // length of vectors a, b, and c
-extern  double wtime();   // timer routine in CPP common
+extern "C" double wtime();   // timer routine in CPP common
 
 int main(void)
 {

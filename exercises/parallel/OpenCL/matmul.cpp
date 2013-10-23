@@ -20,6 +20,7 @@
 //
 //------------------------------------------------------------------------------
 
+#include "util.hpp"
 #include "matmul.hpp"
 #include "matrix_lib.hpp"
 

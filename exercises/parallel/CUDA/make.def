@@ -1,10 +1,12 @@
 #
 # Make.def file for Apple's OpenCL SDK running on Lion
-CC          = g++-mp-4.8 -std=c++11 
-CLINKER = $(CC) $(OPENCLFLAGS)
+CC          = nvcc
 
-CFLAGS  = -O3 -DAPPLE -I$(COMMON) 
-CPPFLATS = $(CFLAGS)
+CLINKER = nvcc
+
+CFLAGS  = -O3 -I$(COMMON)
+CPPFLAGS = $(CFLAGS)
+
 LIBS = -lm
 OBJ=o
 EXE=

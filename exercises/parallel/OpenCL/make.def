@@ -1,13 +1,20 @@
 #
-# Make.def file for Apple's OpenCL SDK running on Lion
-CC          = g++-mp-4.8 -std=c++11 
-OPENCLFLAGS = -framework OpenCL -fopenmp
-CLINKER = $(CC) $(OPENCLFLAGS)
-DEVICE  = -DDEVICE=CL_DEVICE_TYPE_CPU
+# Make.def file for Nvidia's OpenCL SDK running on Unix
+CC      = g++
+CLINKER = $(CC)
+DEVICE  = -DDEVICE=CL_DEVICE_TYPE_GPU
 
-CFLAGS  = -O3 -DAPPLE -I$(COMMON) $(DEVICE)
-CPPFLATS = $(CFLAGS)
-LIBS = -lm
+ifdef CUDA_HOME
+	OPENCLINC = -I $(CUDA_HOME)/include -L $(CUDA_HOME)/lib/x86_64
+else
+	OPENCLINC = -I /usr/local/cuda/include -L /usr/local/cuda/lib/
+endif
+
+STDS = -std=c++0x
+
+OPENCLFLAGS = -lOpenCL
+CFLAGS  = -m64 -O3 $(DEVICE) -I$(COMMON) $(STDS)
+LIBS = -lrt -lm
 OBJ=o
 EXE=
 RM=rm -f
