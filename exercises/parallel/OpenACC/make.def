@@ -1,8 +1,9 @@
 # for g++ compiler on Apple OS-X
 # copy to make.def
-CC          = g++
+CC          = /opt/pgi/linux86-64/2013/bin/pgc++
 CLINKER     = $(CC)
-OPTFLAGS    = -fopenmp 
+#OPTFLAGS    =   -acc -fast -Minfo
+OPTFLAGS    =   -acc -fast
 LIBS        = -lm
 PRE         = ./
 
@@ -11,3 +12,4 @@ CFLAGS	  = -g $(OPTFLAGS) -DAPPLE
 OBJ=o
 EXE=
 RM=rm -f
+
